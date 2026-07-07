@@ -43,3 +43,16 @@ next-env.d.ts
 
 # generated registry output (bun run registry:build)
 /public/r/
+
+# docs and specs
+/docs/
+/specs/
+
+# ai tools and skills
+.claude/
+.claudeproject/
+.gemini/
+.cursorrules
+/skills/
+.agents/
+CLAUDE.md

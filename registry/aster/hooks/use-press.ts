@@ -39,6 +39,7 @@ export function usePress<T extends HTMLElement = HTMLElement>(
     if (disabled) setPressed(false);
   }, [disabled]);
 
+
   const end = useCallback(() => {
     setPressed(false);
   }, []);
@@ -59,6 +60,14 @@ export function usePress<T extends HTMLElement = HTMLElement>(
     [disabled],
   );
 
+  const onKeyUp: React.KeyboardEventHandler<T> = useCallback(
+    (event) => {
+      if (disabled) return;
+      if (event.key === " " || event.key === "Enter") end();
+    },
+    [disabled, end],
+  );
+
   return {
     pressed: disabled ? false : pressed,
     pressProps: {
@@ -67,7 +76,7 @@ export function usePress<T extends HTMLElement = HTMLElement>(
       onPointerLeave: end,
       onPointerCancel: end,
       onKeyDown,
-      onKeyUp: end,
+      onKeyUp,
     },
   };
 }

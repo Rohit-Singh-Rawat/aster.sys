@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import type { ReactElement } from "react";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { mdxComponents } from "@/mdx-components";
 
@@ -26,6 +27,7 @@ interface RegistryItem {
 export interface SourceFile {
   name: string;
   code: string;
+  language?: string;
 }
 
 export interface PrimitiveIndexEntry {
@@ -38,7 +40,7 @@ export interface PrimitiveIndexEntry {
 export interface PrimitiveDoc extends PrimitiveIndexEntry {
   files: SourceFile[];
   demos: SourceFile[];
-  body?: React.ReactElement;
+  body?: ReactElement;
 }
 
 function readRegistry(): RegistryItem[] {
@@ -73,6 +75,7 @@ export async function getPrimitive(slug: string): Promise<PrimitiveDoc | null> {
     .map((file) => ({
       name: path.basename(file.path),
       code: fs.readFileSync(path.join(ROOT, file.path), "utf-8"),
+      language: path.extname(file.path).slice(1) || "tsx",
     }));
 
   const demosDir = path.join(UI_DIR, slug, "demos");
@@ -84,6 +87,7 @@ export async function getPrimitive(slug: string): Promise<PrimitiveDoc | null> {
         .map((file) => ({
           name: file.replace(/\.tsx$/, ""),
           code: fs.readFileSync(path.join(demosDir, file), "utf-8"),
+          language: "tsx",
         }))
     : [];
 
@@ -91,7 +95,7 @@ export async function getPrimitive(slug: string): Promise<PrimitiveDoc | null> {
     console.warn(`[registry-loader] primitive "${slug}" has no demos`);
   }
 
-  let body: React.ReactElement | undefined;
+  let body: ReactElement | undefined;
   const mdxPath = path.join(CONTENT_DIR, `${slug}.mdx`);
   if (fs.existsSync(mdxPath)) {
     const compiled = await compileMDX({

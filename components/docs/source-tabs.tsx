@@ -6,6 +6,7 @@ import { CodeBlock } from "./code-block";
 interface SourceFile {
   name: string;
   code: string;
+  language?: string;
 }
 
 export function SourceTabs({ files }: { files: SourceFile[] }) {
@@ -80,7 +81,7 @@ export function SourceTabs({ files }: { files: SourceFile[] }) {
         // biome-ignore lint/a11y/noNoninteractiveTabindex: WAI-ARIA APG tabpanel must be focusable so keyboard users can scroll its content
         tabIndex={0}
       >
-        <CodeBlock code={activeFile.code} />
+        <CodeBlock code={activeFile.code} language={activeFile.language} />
       </div>
     </div>
   );
