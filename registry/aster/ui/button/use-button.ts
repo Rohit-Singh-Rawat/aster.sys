@@ -19,6 +19,7 @@ export interface UseButtonOptions {
   onPointerCancel?: React.PointerEventHandler<HTMLButtonElement>;
   onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLButtonElement>;
+  onBlur?: React.FocusEventHandler<HTMLButtonElement>;
 }
 
 /**
@@ -45,6 +46,7 @@ export function useButton(options: UseButtonOptions = {}) {
       ),
       onKeyDown: chain(pressProps.onKeyDown, consumer.onKeyDown),
       onKeyUp: chain(pressProps.onKeyUp, consumer.onKeyUp),
+      onBlur: chain(pressProps.onBlur, consumer.onBlur),
     },
   };
 }

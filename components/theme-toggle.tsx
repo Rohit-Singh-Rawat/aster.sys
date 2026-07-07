@@ -11,14 +11,14 @@ export function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return <div aria-hidden className="h-8 w-8" />;
+  if (!mounted) return <div aria-hidden className="size-8" />;
 
   return (
     <button
       type="button"
       aria-label="Toggle theme"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="flex h-8 w-8 items-center justify-center rounded-md border border-border text-xs text-muted-foreground transition-colors duration-(--motion-dur-fast) hover:text-foreground"
+      className="flex size-8 items-center justify-center rounded-md border border-border text-xs text-muted-foreground outline-none transition-colors duration-(--motion-dur-fast) hover:bg-muted/60 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
     >
       {resolvedTheme === "dark" ? "☾" : "☀"}
     </button>

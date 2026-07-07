@@ -8,10 +8,8 @@
   --muted: oklch(0.94 0 0);
   --muted-foreground: oklch(0.52 0 0);
   --border: oklch(0.88 0 0);
-  /* Accent: "light moving across glass" — used only for wordmark, active states, focus rings */
+  /* Accent: "light moving across glass" | used only for wordmark, active states, focus rings */
   --accent: oklch(0.62 0.11 265);
-  --accent-from: oklch(0.72 0.12 250);
-  --accent-to: oklch(0.78 0.1 320);
   --ring: oklch(0.62 0.11 265);
 }
 
@@ -22,8 +20,6 @@
   --muted-foreground: oklch(0.62 0 0);
   --border: oklch(0.27 0 0);
   --accent: oklch(0.75 0.12 265);
-  --accent-from: oklch(0.78 0.12 250);
-  --accent-to: oklch(0.82 0.1 320);
   --ring: oklch(0.75 0.12 265);
 }
 
@@ -35,20 +31,101 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-ring: var(--ring);
+
   --font-sans: var(--font-satoshi);
   --font-mono: var(--font-geist-mono);
 
-  /* Motion system — must mirror registry/aster/lib/motion-tokens.ts */
+  /* Type scale extension: micro labels (kickers, badges, annotations).
+     Anything smaller than this is not text | draw it in an SVG. */
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 0.875rem;
+
+  /* Motion system | must mirror registry/aster/lib/motion-tokens.ts */
   --motion-dur-instant: 50ms;
   --motion-dur-fast: 120ms;
   --motion-dur-base: 200ms;
   --motion-dur-slow: 320ms;
   --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --motion-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  /* Site-only showcase timing (not part of the shipped motion system):
+     the slow blueprint → implementation dissolve on /systems cards, and
+     the ambient footer-gradient / body background crossfade. */
+  --motion-dur-showcase: 700ms;
+  --motion-dur-ambient: 1000ms;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Page transitions (React <ViewTransition>, activated on route navigation).
+   Asymmetric per the motion protocol: old page leaves fast (opacity only),
+   new page arrives on the slow curve with a slight rise. */
+::view-transition-old(.page-exit) {
+  animation: var(--motion-dur-fast) var(--motion-ease-out) both vt-fade reverse;
+}
+
+::view-transition-new(.page-enter) {
+  animation:
+    var(--motion-dur-slow) var(--motion-ease-out) var(--motion-dur-instant) both
+    vt-fade,
+    var(--motion-dur-slow) var(--motion-ease-out) var(--motion-dur-instant) both
+    vt-rise;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vt-rise {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* Reduced motion: pages swap instantly (browser default behavior). */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* Blueprint micro-interactions (/systems wireframes) */
+@keyframes bp-check-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Hide scrollbar aggressively across the whole site */
+html,
+body,
+* {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE/Edge */
+}
+
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  -webkit-appearance: none !important;
 }

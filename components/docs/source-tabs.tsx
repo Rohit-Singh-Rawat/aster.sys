@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { CodeBlock } from "./code-block";
+import { CodeBlock } from "./code-block-lazy";
 
 interface SourceFile {
   name: string;
@@ -64,7 +64,7 @@ export function SourceTabs({ files }: { files: SourceFile[] }) {
             aria-controls={`source-panel-${file.name}`}
             tabIndex={index === active ? 0 : -1}
             onClick={() => setActive(index)}
-            className={`rounded-md px-3 py-1.5 font-mono text-xs transition-colors duration-(--motion-dur-fast) ${
+            className={`rounded-md px-3 py-1.5 font-mono text-xs outline-none transition-colors duration-(--motion-dur-fast) focus-visible:ring-2 focus-visible:ring-ring ${
               index === active
                 ? "bg-muted text-foreground"
                 : "text-muted-foreground hover:text-foreground"

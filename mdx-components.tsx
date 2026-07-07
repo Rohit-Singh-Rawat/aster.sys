@@ -1,4 +1,9 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { slugifyHeading } from "@/lib/slugify";
+
+function headingId(children: ReactNode): string | undefined {
+  return typeof children === "string" ? slugifyHeading(children) : undefined;
+}
 
 function Kbd({ children }: { children: ReactNode }) {
   return (
@@ -35,7 +40,7 @@ function PropsTable({ rows }: { rows: PropRow[] }) {
                 {row.type}
               </td>
               <td className="py-2 pr-4 font-mono text-xs text-muted-foreground">
-                {row.defaultValue ?? "—"}
+                {row.defaultValue ?? "-"}
               </td>
               <td className="py-2 text-muted-foreground">{row.description}</td>
             </tr>
@@ -49,19 +54,20 @@ function PropsTable({ rows }: { rows: PropRow[] }) {
 export const mdxComponents = {
   h2: (props: ComponentPropsWithoutRef<"h2">) => (
     <h2
-      className="mt-10 mb-3 text-xl font-semibold tracking-tight text-foreground"
+      id={headingId(props.children)}
+      className="mt-10 mb-3 scroll-mt-24 text-xl font-medium tracking-tight text-foreground"
       {...props}
     />
   ),
   h3: (props: ComponentPropsWithoutRef<"h3">) => (
     <h3
-      className="mt-6 mb-2 text-base font-semibold text-foreground"
+      className="mt-6 mb-2 text-base font-medium text-foreground"
       {...props}
     />
   ),
   p: (props: ComponentPropsWithoutRef<"p">) => (
     <p
-      className="mb-4 max-w-prose leading-relaxed text-muted-foreground"
+      className="mb-4 max-w-prose text-pretty leading-relaxed text-muted-foreground"
       {...props}
     />
   ),

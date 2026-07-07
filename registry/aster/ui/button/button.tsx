@@ -50,6 +50,7 @@ export function Button({
   onPointerCancel,
   onKeyDown,
   onKeyUp,
+  onBlur,
   ...rest
 }: ButtonProps) {
   const { buttonProps } = useButton({
@@ -60,6 +61,7 @@ export function Button({
     onPointerCancel,
     onKeyDown,
     onKeyUp,
+    onBlur,
   });
 
   return (

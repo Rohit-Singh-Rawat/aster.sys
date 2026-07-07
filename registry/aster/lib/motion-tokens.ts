@@ -1,5 +1,5 @@
 /**
- * Motion tokens — the single source of motion truth for JS animations.
+ * Motion tokens - the single source of motion truth for JS animations.
  * The CSS counterparts (--motion-* variables in the app stylesheet, shipped
  * to consumers via this item's cssVars) must mirror these values exactly.
  */

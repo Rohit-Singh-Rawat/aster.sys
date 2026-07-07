@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export interface UsePressOptions {
   /** Mirrors the element's disabled state; disables all press tracking. */
@@ -14,6 +14,7 @@ export interface PressProps<T extends HTMLElement = HTMLElement> {
   onPointerCancel: React.PointerEventHandler<T>;
   onKeyDown: React.KeyboardEventHandler<T>;
   onKeyUp: React.KeyboardEventHandler<T>;
+  onBlur: React.FocusEventHandler<T>;
 }
 
 export interface UsePressResult<T extends HTMLElement = HTMLElement> {
@@ -25,7 +26,7 @@ export interface UsePressResult<T extends HTMLElement = HTMLElement> {
 
 /**
  * Press interaction system: tracks an active press across pointer and
- * keyboard with cancel semantics — dragging off the element or a cancelled
+ * keyboard with cancel semantics - dragging off the element or a cancelled
  * pointer ends the press without activation. Activation itself stays native
  * (click), so there is no double-fire risk.
  */
@@ -35,10 +36,12 @@ export function usePress<T extends HTMLElement = HTMLElement>(
   const { disabled = false } = options;
   const [pressed, setPressed] = useState(false);
 
-  useEffect(() => {
-    if (disabled) setPressed(false);
-  }, [disabled]);
-
+  // Becoming disabled mid-press releases it. Adjusted during render (not in
+  // an effect) so no frame ever shows a pressed-but-disabled control:
+  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  if (disabled && pressed) {
+    setPressed(false);
+  }
 
   const end = useCallback(() => {
     setPressed(false);
@@ -77,6 +80,9 @@ export function usePress<T extends HTMLElement = HTMLElement>(
       onPointerCancel: end,
       onKeyDown,
       onKeyUp,
+      // Losing focus mid-press (Alt+Tab while Space is held, focus stolen by
+      // a dialog) never delivers the matching keyup - release here instead.
+      onBlur: end,
     },
   };
 }

@@ -17,11 +17,12 @@ export function CodeBlock({
           style={{ ...style }}
         >
           {tokens.map((line, lineIndex) => (
+            // key after the spread so prism props can never overwrite it
             // biome-ignore lint/suspicious/noArrayIndexKey: lines are positional
-            <div key={lineIndex} {...getLineProps({ line })}>
+            <div {...getLineProps({ line })} key={lineIndex}>
               {line.map((token, tokenIndex) => (
                 // biome-ignore lint/suspicious/noArrayIndexKey: tokens are positional
-                <span key={tokenIndex} {...getTokenProps({ token })} />
+                <span {...getTokenProps({ token })} key={tokenIndex} />
               ))}
             </div>
           ))}

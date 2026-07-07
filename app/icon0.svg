@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116" fill="none"><metadata><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"><rdf:Description><dc:creator>RealFaviconGenerator</dc:creator><dc:source>https://realfavicongenerator.net</dc:source></rdf:Description></rdf:RDF></metadata><path d="M44.3662 26.2642C50.49 15.2829 53.5495 9.79221 58.1267 9.79221C62.7038 9.79221 65.7633 15.2829 71.8872 26.2642L73.4725 29.1062C75.2125 32.2285 76.0825 33.7897 77.4358 34.8192C78.7892 35.8487 80.4808 36.2305 83.8642 36.9942L86.9382 37.6902C98.8282 40.3824 104.768 41.726 106.185 46.2742C107.596 50.8175 103.546 55.559 95.44 65.0372L93.3423 67.4877C91.0417 70.1799 89.8865 71.5284 89.3694 73.191C88.8522 74.8585 89.0262 76.6565 89.3742 80.2477L89.6932 83.5199C90.916 96.1687 91.5298 102.491 87.8275 105.299C84.1252 108.107 78.5572 105.545 67.4308 100.422L64.5453 99.0977C61.3843 97.638 59.8038 96.913 58.1267 96.913C56.4495 96.913 54.869 97.638 51.708 99.0977L48.8273 100.422C37.6962 105.545 32.1282 108.107 28.4307 105.304C24.7235 102.491 25.3373 96.1687 26.5602 83.5199L26.8792 80.2525C27.2272 76.6565 27.4012 74.8585 26.8792 73.1959C26.3668 71.5284 25.2117 70.1799 22.911 67.4925L20.8133 65.0372C12.7078 55.5639 8.65751 50.8224 10.0688 46.2742C11.4802 41.726 17.43 40.3775 29.32 37.6902L32.394 36.9942C35.7725 36.2305 37.4593 35.8487 38.8175 34.8192C40.1757 33.7897 41.0408 32.2285 42.7808 29.1062L44.3662 26.2642Z" fill="url(#paint0_linear_153_2)" style="mix-blend-mode:darken"></path><defs>
+<linearGradient id="paint0_linear_153_2" x1="58.1267" y1="9.79221" x2="58.1267" y2="106.458" gradientUnits="userSpaceOnUse">
+<stop></stop>
+<stop offset="0.471154" stop-opacity="0.9"></stop>
+<stop offset="0.59375" stop-opacity="0.875"></stop>
+<stop offset="0.663462" stop-opacity="0.85"></stop>
+<stop offset="0.793269" stop-color="#5E0979" stop-opacity="0.925"></stop>
+<stop offset="0.879808" stop-color="#8C0EB4"></stop>
+<stop offset="0.93" stop-color="#C47E7C"></stop>
+<stop offset="1" stop-color="#F7FF1A" stop-opacity="0.91"></stop>
+</linearGradient>
+</defs><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: invert(100%); } }
+</style></svg>
