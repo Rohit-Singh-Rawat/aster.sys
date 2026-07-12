@@ -43,7 +43,7 @@ function HeaderIconButton({
       type="button"
       aria-label={label}
       onClick={onClick}
-      className="flex size-8 items-center justify-center rounded-md text-muted-foreground outline-none transition-colors duration-(--motion-dur-fast) hover:bg-muted hover:text-foreground focus-ring"
+      className="group flex size-8 items-center justify-center rounded-md text-muted-foreground outline-none transition-colors duration-(--motion-dur-fast) hover:bg-muted hover:text-foreground focus-ring"
     >
       {children}
     </button>
