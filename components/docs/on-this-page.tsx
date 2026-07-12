@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { cn } from "@/registry/aster/lib/cn";
 
 export interface TocEntry {
   id: string;
   label: string;
+  level?: number;
 }
 
-/**
- * "On this page" rail: anchors to page sections, tracking the one currently
- * in view with an IntersectionObserver.
- */
 export function OnThisPage({ entries }: { entries: TocEntry[] }) {
   const [active, setActive] = useState(entries[0]?.id);
 
@@ -37,26 +35,32 @@ export function OnThisPage({ entries }: { entries: TocEntry[] }) {
   if (entries.length === 0) return null;
 
   return (
-    <div>
-      <p className="mb-3 flex items-center gap-1.5 font-mono text-2xs uppercase tracking-widest text-muted-foreground">
-        On this page
+    <div className="relative">
+      <p className="mb-4 text-sm font-medium text-muted-foreground">
+        On This Page
       </p>
-      <ul className="flex flex-col">
-        {entries.map((entry) => (
-          <li key={entry.id}>
-            <a
-              href={`#${entry.id}`}
-              aria-current={active === entry.id ? "true" : undefined}
-              className={`block border-l py-1 pl-3 text-sm outline-none transition-colors duration-(--motion-dur-fast) focus-visible:ring-2 focus-visible:ring-ring ${
-                active === entry.id
-                  ? "border-foreground text-foreground"
-                  : "border-border text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {entry.label}
-            </a>
-          </li>
-        ))}
+      <ul className="flex flex-col gap-1">
+        {entries.map((entry) => {
+          const isSub = (entry.level ?? 1) === 2;
+          const isActive = active === entry.id;
+          return (
+            <li key={entry.id}>
+              <a
+                href={`#${entry.id}`}
+                aria-current={isActive ? "true" : undefined}
+                className={cn(
+                  "block text-sm outline-none transition-colors duration-(--motion-dur-fast) focus-ring",
+                  isSub ? "pl-4" : "",
+                  isActive
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {entry.label}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
