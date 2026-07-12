@@ -19,13 +19,16 @@ export function DemoFrame({
   return (
     <section className="relative overflow-hidden rounded-xl bg-muted/30">
       {code.length > 0 && (
-        <button
+        <motion.button
           type="button"
           onClick={() => setShowCode((value) => !value)}
           aria-expanded={showCode}
           aria-controls={codeBlockId}
           aria-label={showCode ? `Hide ${name} code` : `Show ${name} code`}
           className="absolute top-3 right-5 z-10 inline-flex items-center justify-center rounded-md p-1.5 text-muted-foreground outline-none transition-all duration-200 hover:bg-muted hover:text-foreground active:scale-[0.97] motion-reduce:transform-none focus-visible:ring-2"
+          whileHover="hover"
+          initial={false}
+          animate={showCode ? "hover" : "rest"}
         >
           <motion.svg
             aria-hidden="true"
@@ -41,18 +44,16 @@ export function DemoFrame({
           >
             <motion.polyline
               points="8 6 2 12 8 18"
-              initial={false}
-              animate={{ x: showCode ? -3 : 0 }}
+              variants={{ rest: { x: 0 }, hover: { x: -3 } }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
             />
             <motion.polyline
               points="16 18 22 12 16 6"
-              initial={false}
-              animate={{ x: showCode ? 3 : 0 }}
+              variants={{ rest: { x: 0 }, hover: { x: 3 } }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
             />
           </motion.svg>
-        </button>
+        </motion.button>
       )}
       
       <div className="relative min-h-[350px] w-full" id={codeBlockId}>
