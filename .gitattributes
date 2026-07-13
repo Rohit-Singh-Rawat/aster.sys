@@ -1,0 +1,11 @@
+# Normalize all text files to LF in the repository and on checkout, so
+# Windows' core.autocrlf never introduces CRLF drift that fights Biome's
+# formatter (which always writes LF).
+* text=auto eol=lf
+
+# Binary/generated assets: no line-ending conversion.
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
