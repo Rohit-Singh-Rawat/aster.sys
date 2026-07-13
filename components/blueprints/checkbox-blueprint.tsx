@@ -1,4 +1,4 @@
-import { Blueprint, BP_MORPH, DimH, PadGuide, blueprintTheme } from "./parts";
+import { Blueprint, BP_MORPH, blueprintTheme, DimH, PadGuide } from "./parts";
 
 /**
  * Checkbox: box + label wrapped by a dashed boundary around the whole unit

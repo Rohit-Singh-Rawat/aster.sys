@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
     // React <ViewTransition> for cross-route page transitions
     viewTransition: true,
   },
-
 };
 
 export default nextConfig;

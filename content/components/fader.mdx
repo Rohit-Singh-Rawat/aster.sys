@@ -1,0 +1,168 @@
+---
+title: Fader
+---
+
+## Usage
+
+```tsx
+import { Fader } from "@/components/ui/fader/fader";
+```
+
+```tsx
+<Fader
+  label="Opacity"
+  value={opacity}
+  onValueChange={setOpacity}
+  min={0}
+  max={100}
+  unit="%"
+/>
+```
+
+## What it is
+
+A parameter control whose track doubles as the value display: the label
+and live value sit inside the fill, so the edge of the fill is always the
+reading. It's built for tuning a value while watching it change, not for
+picking one value in a form.
+
+## Use cases
+
+- Live-adjustable parameters in a control panel, like opacity, radius, or
+  scale, where feeling the change as you drag matters more than typing an
+  exact number.
+- Snap-to-detent choices (`points={[0, 4, 8, 16]}`) when only a few values
+  actually make sense, without giving up the scrub feel.
+- Anywhere a bare numeric input would hide the value's relationship to the
+  range it lives in.
+
+## Built on
+
+Fader is built on Base UI's Slider (`@base-ui/react`), which supplies the
+semantics, keyboard handling, touch support, and ARIA plumbing. It may
+move onto Aster's own slider foundation in the future, but its public API
+won't change.
+
+## Interaction spec
+
+Two value grammars, explicit in the API and never merged implicitly:
+
+- **Continuous** (default): "about this much." Drag is 1:1 with the
+  pointer; a click teleports, so the travel animates on a spring to read as
+  continuous motion.
+- **Snap points** (`points={[0, 4, 8, 16]}`): "one of these." Pointer input
+  only ever lands on a point. Dragging hops between detents on a spring,
+  clicks go to the nearest point, and a mark shows each interior point.
+  Coarse-step sliders (≤ 12 stops) behave as detents too; snappy is one
+  behavior with two ways to declare it.
+
+- Hover → fill brightens one step (fine pointers only)
+- Pointer down on track → grab; drag → value follows 1:1 (or hops detents)
+- Click → value teleports; the fill springs to it
+- Drag past an end → elastic stretch, spring home on release or re-entry
+- <Kbd>←</Kbd> <Kbd>→</Kbd> → step (or previous/next point)
+- <Kbd>Home</Kbd> / <Kbd>End</Kbd> → min / max
+- <Kbd>PageUp</Kbd> / <Kbd>PageDown</Kbd> → large step
+
+## Accessibility
+
+- Base UI's slider supplies a real `input type="range"`: native slider
+  semantics, no ARIA re-implementation.
+- One tab stop (the Apple HIG model): <Kbd>Tab</Kbd> focuses the slider,
+  arrows adjust. Keyboard changes are never animated.
+- The visual label/value overlay is `aria-hidden` to avoid double
+  announcements; the input already owns the accessible name and value via
+  `aria-labelledby`.
+- `aria-valuetext` includes the unit, so a screen reader hears "65%", never
+  a bare "65".
+- Focus ring on the outer control, keyboard-only (`:focus-visible` via
+  `has-focus-visible`), plus a full-presence bar: one ring language
+  everywhere.
+- `touch-pan-y`: vertical swipes scroll the page; horizontal gestures reach
+  the slider. Track heights (32/40/48px) clear the WCAG 2.5.8 target
+  minimum.
+- `disabled` uses Base UI's native model (`data-disabled`, unfocusable).
+
+## Motion
+
+Travel (click-jump, detent hops) runs on `springs.settle` with carried
+velocity: a second input mid-flight retargets the same spring instead of
+cutting. Drag and keyboard input are never animated. Hover and drag tint
+the fill at `--motion-dur-fast`. The elastic overdrag is transform-only
+(`scaleX`, ≤ 8px, exponential damping) and springs home.
+
+Under `prefers-reduced-motion`, springs become jumps, the bar keeps its
+opacity feedback but drops scale, and the overdrag stretch is disabled
+entirely.
+
+## API
+
+### Fader
+
+<PropsTable
+  rows={[
+    {
+      name: "label",
+      type: "string",
+      description: "Accessible name, rendered inside the track.",
+    },
+    {
+      name: "value",
+      type: "number",
+      description: "Controlled value, the single source of truth.",
+    },
+    {
+      name: "onValueChange",
+      type: "(value: number) => void",
+      description: "Change handler for drag, click, and keyboard input.",
+    },
+    {
+      name: "min / max / step",
+      type: "number",
+      defaultValue: "0 / 100 / 1",
+      description: "Range and step. ≤ 12 reachable stops behave as detents.",
+    },
+    {
+      name: "points",
+      type: "number[]",
+      description:
+        "Snap-points grammar: input only ever lands on these values.",
+    },
+    {
+      name: "unit",
+      type: "string",
+      description: "Rendered after the value and spoken via aria-valuetext.",
+    },
+    {
+      name: "size",
+      type: '"sm" | "md" | "lg"',
+      defaultValue: '"md"',
+      description: "Track height scale; bar and marks scale along.",
+    },
+    {
+      name: "tone",
+      type: '"accent" | "neutral"',
+      defaultValue: '"accent"',
+      description: "Ink family for fill and bar, from the color roles.",
+    },
+    {
+      name: "bordered",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Hairline input outline for busy surfaces.",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      defaultValue: "false",
+      description: "Disables interaction; dims to the disabled opacity.",
+    },
+  ]}
+/>
+
+### useFader
+
+The behavior layer: value grammars, the settle spring and its controlled
+contract, text-zone measurement, bar dodge, and elastic overdrag. Owns every
+motion value and renders nothing; the visual component is variants and
+markup over it.

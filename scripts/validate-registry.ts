@@ -2,6 +2,7 @@
  * Fails the registry build on manifest ⇄ filesystem drift:
  *  - every file listed in registry.json must exist
  *  - every primitive folder under registry/aster/ui must have a manifest item
+ *  - every registry:ui item must have a colocated *.test.ts(x) file
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -10,7 +11,7 @@ const ROOT = process.cwd();
 const registry = JSON.parse(
   fs.readFileSync(path.join(ROOT, "registry.json"), "utf-8"),
 ) as {
-  items: { name: string; files?: { path: string }[] }[];
+  items: { name: string; type: string; files?: { path: string }[] }[];
 };
 
 const errors: string[] = [];
@@ -32,6 +33,23 @@ if (fs.existsSync(uiDir)) {
         `Folder registry/aster/ui/${folder} has no registry.json item`,
       );
     }
+  }
+}
+
+// Testing is structural: every registry:ui item must ship colocated tests
+// (docs/03-templates/testing-template.md — an untested primitive is not
+// production-ready, and this check makes that impossible to forget).
+for (const item of registry.items) {
+  if (item.type !== "registry:ui") continue;
+  const itemDir = path.join(uiDir, item.name);
+  if (!fs.existsSync(itemDir)) continue; // missing-folder drift is reported above
+  const hasTest = fs
+    .readdirSync(itemDir)
+    .some((file) => /\.test\.(ts|tsx)$/.test(file));
+  if (!hasTest) {
+    errors.push(
+      `Item "${item.name}": no colocated *.test.ts(x) in registry/aster/ui/${item.name}`,
+    );
   }
 }
 

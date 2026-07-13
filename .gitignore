@@ -40,6 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 /.superpowers/
+/.worktrees/
 
 # generated registry output (bun run registry:build)
 /public/r/

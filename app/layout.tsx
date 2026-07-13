@@ -1,3 +1,4 @@
+import { Agentation } from "agentation";
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
@@ -39,24 +40,59 @@ export const metadata: Metadata = {
   // SITE_URL comes from NEXT_PUBLIC_SITE_URL (lib/site.ts) — set it to the
   // production domain so canonical/OG URLs resolve correctly.
   metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
   title: {
     default: SITE_TITLE,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
+  keywords: [
+    "React",
+    "Tailwind CSS",
+    "Framer Motion",
+    "Components",
+    "Primitives",
+    "Design System",
+    "Accessible",
+    "UI",
+  ],
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
   openGraph: {
     siteName: SITE_NAME,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     type: "website",
+    url: SITE_URL,
+    images: [
+      {
+        url: "/images/og/app-og.png",
+        width: 1200,
+        height: 630,
+        alt: SITE_TITLE,
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: ["/images/og/app-og.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   appleWebApp: {
     title: SITE_NAME,
+    statusBarStyle: "default",
   },
 };
 
@@ -97,6 +133,7 @@ export default function RootLayout({
         >
           <SiteSurface>{children}</SiteSurface>
           <Footer />
+          {process.env.NODE_ENV === "development" && <Agentation />}
         </ThemeProvider>
       </body>
     </html>

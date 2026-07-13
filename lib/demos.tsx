@@ -1,6 +1,10 @@
 import type { ComponentType } from "react";
-import BasicDemo from "@/registry/aster/ui/button/demos/basic";
-import PressedDemo from "@/registry/aster/ui/button/demos/pressed";
+import ButtonBasicDemo from "@/registry/aster/ui/button/demos/basic";
+import ButtonPressedDemo from "@/registry/aster/ui/button/demos/pressed";
+import { Component as FaderAnatomyDemo } from "@/registry/aster/ui/fader/demos/anatomy";
+import FaderBasicDemo from "@/registry/aster/ui/fader/demos/basic";
+import FaderHeroDemo from "@/registry/aster/ui/fader/demos/hero";
+import FaderVariantsDemo from "@/registry/aster/ui/fader/demos/variants";
 
 /**
  * Live demo components per primitive slug. Code strings come from the
@@ -12,7 +16,13 @@ export const demoRegistry: Record<
   { name: string; Component: ComponentType }[]
 > = {
   button: [
-    { name: "basic", Component: BasicDemo },
-    { name: "pressed", Component: PressedDemo },
+    { name: "basic", Component: ButtonBasicDemo },
+    { name: "pressed", Component: ButtonPressedDemo },
+  ],
+  fader: [
+    { name: "hero", Component: FaderHeroDemo },
+    { name: "basic", Component: FaderBasicDemo },
+    { name: "variants", Component: FaderVariantsDemo },
+    { name: "anatomy", Component: FaderAnatomyDemo },
   ],
 };

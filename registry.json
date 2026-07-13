@@ -54,8 +54,24 @@
       ]
     },
     {
+      "name": "use-elastic-overdrag",
+      "type": "registry:hook",
+      "title": "useElasticOverdrag",
+      "description": "Elastic overdrag system: dragging past a surface's bounds stretches it with damped resistance and springs home.",
+      "dependencies": ["motion"],
+      "registryDependencies": ["@aster/motion-tokens"],
+      "files": [
+        {
+          "path": "registry/aster/hooks/use-elastic-overdrag.ts",
+          "type": "registry:hook",
+          "target": "@hooks/use-elastic-overdrag.ts"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
+      "layer": "system",
       "title": "Button",
       "description": "A button engineered as an interaction system — press physics, keyboard parity, motion tokens.",
       "categories": ["actions"],
@@ -75,6 +91,37 @@
           "path": "registry/aster/ui/button/use-button.ts",
           "type": "registry:ui",
           "target": "@ui/button/use-button.ts"
+        }
+      ]
+    },
+    {
+      "name": "fader",
+      "type": "registry:ui",
+      "layer": "component",
+      "title": "Fader",
+      "description": "A parameter control whose track doubles as the value display.",
+      "categories": ["inputs"],
+      "dependencies": ["@base-ui/react", "motion"],
+      "registryDependencies": [
+        "@aster/cn",
+        "@aster/motion-tokens",
+        "@aster/use-elastic-overdrag"
+      ],
+      "files": [
+        {
+          "path": "registry/aster/ui/fader/fader.tsx",
+          "type": "registry:ui",
+          "target": "@ui/fader/fader.tsx"
+        },
+        {
+          "path": "registry/aster/ui/fader/use-fader.ts",
+          "type": "registry:ui",
+          "target": "@ui/fader/use-fader.ts"
+        },
+        {
+          "path": "registry/aster/ui/fader/geometry.ts",
+          "type": "registry:ui",
+          "target": "@ui/fader/geometry.ts"
         }
       ]
     }

@@ -13,7 +13,7 @@ export const CodeBlock = dynamic(
     loading: () => (
       <pre
         aria-hidden="true"
-        className="max-h-96 min-h-24 overflow-auto rounded-lg border border-border p-4"
+        className="max-h-96 min-h-24 overflow-auto p-4 custom-scrollbar"
       />
     ),
   },

@@ -6,8 +6,8 @@ import { useButton } from "./use-button";
 
 const buttonVariants = cva(
   [
-    "inline-flex select-none items-center justify-center gap-2 rounded-lg font-medium",
-    "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    "inline-flex select-none items-center justify-center gap-2 squircle font-medium",
+    "outline-none focus-ring focus-visible:outline-none",
     // Press physics: compression is immediate on the way down, eased on release.
     "transition-[transform,background-color,color,border-color] duration-(--motion-dur-fast) ease-(--motion-ease-out)",
     "data-pressed:scale-[0.97] data-pressed:duration-(--motion-dur-instant)",

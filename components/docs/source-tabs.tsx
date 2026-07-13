@@ -1,7 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { motion } from "motion/react";
+import { useId, useRef, useState } from "react";
 import { CodeBlock } from "./code-block-lazy";
+import { ScrollFade } from "./scroll-fade";
 
 interface SourceFile {
   name: string;
@@ -9,9 +11,28 @@ interface SourceFile {
   language?: string;
 }
 
-export function SourceTabs({ files }: { files: SourceFile[] }) {
-  const [active, setActive] = useState(0);
+type SourceTabsProps = {
+  files: SourceFile[];
+  /** Controlled active-tab index — omit for the uncontrolled default (most callers). */
+  active?: number;
+  onActiveChange?: (index: number) => void;
+} & (
+  | { fillHeight?: false; codeBackground?: never }
+  | { fillHeight: true; codeBackground: string }
+);
+
+export function SourceTabs({
+  files,
+  active: controlledActive,
+  onActiveChange,
+  fillHeight = false,
+  codeBackground,
+}: SourceTabsProps) {
+  const [internalActive, setInternalActive] = useState(0);
+  const active = controlledActive ?? internalActive;
+  const setActive = onActiveChange ?? setInternalActive;
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const layoutId = useId();
   if (files.length === 0) return null;
   const activeFile = files[Math.min(active, files.length - 1)];
 
@@ -44,7 +65,7 @@ export function SourceTabs({ files }: { files: SourceFile[] }) {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className={`flex flex-col gap-2 ${fillHeight ? "h-full" : ""}`}>
       <div
         role="tablist"
         aria-label="Source files"
@@ -64,12 +85,19 @@ export function SourceTabs({ files }: { files: SourceFile[] }) {
             aria-controls={`source-panel-${file.name}`}
             tabIndex={index === active ? 0 : -1}
             onClick={() => setActive(index)}
-            className={`rounded-md px-3 py-1.5 font-mono text-xs outline-none transition-colors duration-(--motion-dur-fast) focus-visible:ring-2 focus-visible:ring-ring ${
+            className={`relative rounded-md px-3 py-1.5 font-mono text-xs outline-none transition-colors duration-(--motion-dur-fast) focus-ring ${
               index === active
-                ? "bg-muted text-foreground"
+                ? "text-foreground"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
+            {index === active && (
+              <motion.span
+                layoutId={`${layoutId}-active-tab`}
+                className="-z-10 absolute inset-0 rounded-md bg-muted"
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              />
+            )}
             {file.name}
           </button>
         ))}
@@ -80,8 +108,22 @@ export function SourceTabs({ files }: { files: SourceFile[] }) {
         aria-labelledby={`source-tab-${activeFile.name}`}
         // biome-ignore lint/a11y/noNoninteractiveTabindex: WAI-ARIA APG tabpanel must be focusable so keyboard users can scroll its content
         tabIndex={0}
+        className={
+          fillHeight ? "relative min-h-0 flex-1" : "rounded-lg bg-muted"
+        }
       >
-        <CodeBlock code={activeFile.code} language={activeFile.language} />
+        {fillHeight && codeBackground && (
+          <>
+            <ScrollFade position="top" background={codeBackground} />
+            <ScrollFade position="bottom" background={codeBackground} />
+          </>
+        )}
+        <CodeBlock
+          code={activeFile.code}
+          language={activeFile.language}
+          fillHeight={fillHeight}
+          hideScrollbar={fillHeight}
+        />
       </div>
     </div>
   );

@@ -15,6 +15,9 @@ export const plannedSystems: PlannedSystem[] = [
   { slug: "switch", title: "Switch" },
   { slug: "tooltip", title: "Tooltip" },
   { slug: "radio", title: "Radio" },
-  { slug: "slider", title: "Slider" },
   { slug: "input", title: "Input" },
+  // Distinct from the Fader component (registry, /components/fader): this
+  // is the real, deferred form-slider primitive — see
+  // docs/04-primitives/slider/. Research not yet prioritized.
+  { slug: "slider", title: "Slider" },
 ];

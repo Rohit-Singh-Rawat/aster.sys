@@ -8,12 +8,21 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "registry:build": "bun scripts/validate-registry.ts && shadcn build"
+    "registry:build": "bun scripts/validate-registry.ts && shadcn build",
+    "test": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:browser": "vitest run --project browser",
+    "test:watch": "vitest --project unit",
+    "typecheck": "tsc --noEmit",
+    "check": "bun scripts/validate-registry.ts && biome check && bun run typecheck && vitest run"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
+    "@toolwind/corner-shape": "^0.0.8-3",
+    "agentation": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "hugeicons-react": "^0.4.0",
     "motion": "^12.42.2",
     "next": "16.2.10",
     "next-mdx-remote": "^6.0.0",
@@ -26,13 +35,23 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.0.3",
+    "@vitest/browser-playwright": "^4.1.10",
+    "axe-core": "^4.12.1",
     "babel-plugin-react-compiler": "1.0.0",
+    "jsdom": "^29.1.1",
+    "playwright": "^1.61.1",
     "shadcn": "^4.13.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.10",
+    "vitest-browser-react": "^2.2.0"
   },
   "ignoreScripts": [
     "sharp",
