@@ -238,21 +238,45 @@ export function PageHeaderActions() {
                 <MarkdownIcon className="h-3.5 w-3.5 text-muted-foreground" />
                 View as Markdown
               </Menu.Item>
-              <Menu.Item className="flex cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1.5 text-xs outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
+              <Menu.Item
+                disabled
+                className="flex cursor-not-allowed select-none items-center gap-2 rounded-md px-2 py-1.5 text-xs opacity-50 outline-none"
+              >
                 <V0Icon className="h-3.5 w-3.5 text-muted-foreground" />
                 Open in v0
+                <span className="ml-auto text-[10px] text-muted-foreground">
+                  Soon
+                </span>
               </Menu.Item>
-              <Menu.Item className="flex cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1.5 text-xs outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
+              <Menu.Item
+                disabled
+                className="flex cursor-not-allowed select-none items-center gap-2 rounded-md px-2 py-1.5 text-xs opacity-50 outline-none"
+              >
                 <ChatGPTIcon className="h-3.5 w-3.5 text-muted-foreground" />
                 Open in ChatGPT
+                <span className="ml-auto text-[10px] text-muted-foreground">
+                  Soon
+                </span>
               </Menu.Item>
-              <Menu.Item className="flex cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1.5 text-xs outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
+              <Menu.Item
+                disabled
+                className="flex cursor-not-allowed select-none items-center gap-2 rounded-md px-2 py-1.5 text-xs opacity-50 outline-none"
+              >
                 <ClaudeIcon className="h-3.5 w-3.5 text-muted-foreground" />
                 Open in Claude
+                <span className="ml-auto text-[10px] text-muted-foreground">
+                  Soon
+                </span>
               </Menu.Item>
-              <Menu.Item className="flex cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1.5 text-xs outline-none transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
+              <Menu.Item
+                disabled
+                className="flex cursor-not-allowed select-none items-center gap-2 rounded-md px-2 py-1.5 text-xs opacity-50 outline-none"
+              >
                 <SciraIcon className="h-3.5 w-3.5 text-muted-foreground" />
                 Open in Scira
+                <span className="ml-auto text-[10px] text-muted-foreground">
+                  Soon
+                </span>
               </Menu.Item>
             </Menu.Popup>
           </Menu.Positioner>

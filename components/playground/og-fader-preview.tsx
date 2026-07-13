@@ -731,12 +731,12 @@ function CursorIcon({
 }
 
 const faderOverrideClass = `
-  [&_.squircle]:![background-color:var(--track-bg)]
-  [&_.squircle]:![border:var(--track-border)]
-  [&_.squircle]:![border-radius:var(--track-radius)]
-  [&_.rounded-r-md]:![background-color:var(--fill-bg)]
-  [&_.rounded-r-md]:![border:var(--fill-border)]
-  [&_.w-1]:![background-color:var(--bar-bg)]
+  [&_.squircle]:[background-color:var(--track-bg)]!
+  [&_.squircle]:[border:var(--track-border)]!
+  [&_.squircle]:[border-radius:var(--track-radius)]!
+  [&_.rounded-r-md]:[background-color:var(--fill-bg)]!
+  [&_.rounded-r-md]:[border:var(--fill-border)]!
+  [&_.w-1]:[background-color:var(--bar-bg)]!
 `;
 
 function CascadeCard({

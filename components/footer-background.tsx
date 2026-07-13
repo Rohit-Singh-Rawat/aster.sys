@@ -67,7 +67,7 @@ export function FooterBackground() {
             "--footer-g2": gradient.g2,
             "--footer-g3": gradient.g3,
             background:
-              "linear-gradient(180deg, var(--footer-g1) 20%, var(--footer-g2) 55%, var(--footer-g3) 100%)",
+              "linear-gradient(180deg in oklch, var(--footer-g1) 20%, var(--footer-g2) 55%, var(--footer-g3) 100%)",
           } as React.CSSProperties
         }
       />

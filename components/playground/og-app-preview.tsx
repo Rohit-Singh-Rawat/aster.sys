@@ -294,10 +294,14 @@ export function AppOgPreview() {
     );
   };
 
-  const copyLayout = () => {
+  const copyLayout = async () => {
     const json = JSON.stringify(items, null, 2);
-    navigator.clipboard.writeText(json);
-    alert("Layout JSON copied to clipboard! Paste it to the agent.");
+    try {
+      await navigator.clipboard.writeText(json);
+      alert("Layout JSON copied to clipboard! Paste it to the agent.");
+    } catch {
+      alert("Failed to copy layout JSON — clipboard write was denied.");
+    }
   };
 
   return (
