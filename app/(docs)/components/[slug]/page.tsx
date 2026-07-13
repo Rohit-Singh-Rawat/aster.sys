@@ -5,15 +5,22 @@ import { CodeSheetTrigger } from "@/components/docs/code-sheet-trigger";
 import { CollapsibleAside } from "@/components/docs/collapsible-aside";
 import { CopyPrompt } from "@/components/docs/copy-prompt";
 import { DemoFrame } from "@/components/docs/demo-frame";
+import { HeadingAnchor } from "@/components/docs/heading-anchor";
 import { InstallCommand } from "@/components/docs/install-command";
 import { MainContentShell } from "@/components/docs/main-content-shell";
 import { OnThisPage, type TocEntry } from "@/components/docs/on-this-page";
-import { PageHeaderLinks, PageHeaderActions } from "@/components/docs/page-header";
 import { PageFooter } from "@/components/docs/page-footer";
+import {
+  PageHeaderActions,
+  PageHeaderLinks,
+} from "@/components/docs/page-header";
 import { PageTransition } from "@/components/page-transition";
-import { HeadingAnchor } from "@/components/docs/heading-anchor";
 import { demoRegistry } from "@/lib/demos";
-import { getComponentSlugs, getPrimitive, getComponentIndex, getPagination } from "@/lib/registry-loader";
+import {
+  getComponentSlugs,
+  getPagination,
+  getPrimitive,
+} from "@/lib/registry-loader";
 import { GITHUB_URL, SITE_URL } from "@/lib/site";
 import { slugifyHeading } from "@/lib/slugify";
 
@@ -39,9 +46,9 @@ export async function generateMetadata({
   if (!primitive || primitive.layer !== "component") {
     return { title: "Not found" };
   }
-  
+
   const ogUrl = `/images/og/components/${slug}.png`;
-  
+
   return {
     title: primitive.title,
     description: primitive.description,
@@ -183,7 +190,10 @@ export default async function ComponentPage({
                 id="installation"
                 className="flex scroll-mt-24 flex-col gap-3"
               >
-                <h2 id="installation" className="group relative w-fit text-xl font-medium tracking-tight">
+                <h2
+                  id="installation"
+                  className="group relative w-fit text-xl font-medium tracking-tight"
+                >
                   <HeadingAnchor id="installation" />
                   Installation
                 </h2>
@@ -202,7 +212,10 @@ export default async function ComponentPage({
                   id="variants"
                   className="flex scroll-mt-24 flex-col gap-3"
                 >
-                  <h2 id="variants" className="group relative w-fit text-xl font-medium tracking-tight">
+                  <h2
+                    id="variants"
+                    className="group relative w-fit text-xl font-medium tracking-tight"
+                  >
                     <HeadingAnchor id="variants" />
                     Examples
                   </h2>
@@ -225,10 +238,7 @@ export default async function ComponentPage({
                       {section.body}
                       {section.heading === "What it is" && anatomyDemo && (
                         <div className="mt-8 mb-4">
-                          <DemoFrame
-                            name={anatomyDemo.name}
-                            code=""
-                          >
+                          <DemoFrame name={anatomyDemo.name} code="">
                             <anatomyDemo.Component />
                           </DemoFrame>
                         </div>
@@ -238,9 +248,7 @@ export default async function ComponentPage({
                 </div>
               )}
 
-              <PageFooter
-                {...getPagination(slug)}
-              />
+              <PageFooter {...getPagination(slug)} />
             </div>
           </article>
         </MainContentShell>

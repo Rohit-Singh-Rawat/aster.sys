@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { CodeBlock } from "./code-block-lazy";
 import { CopyButton } from "../ui/copy-button";
+import { CodeBlock } from "./code-block-lazy";
 
 /** Fenced-code-block renderer for MDX content — CodeBlock plus a copy button, since MDX's `pre` has no copy affordance on its own. */
 export function MdxCodeBlock({
@@ -12,7 +11,6 @@ export function MdxCodeBlock({
   code: string;
   language?: string;
 }) {
-
   return (
     <div className="relative mb-4 rounded-lg bg-muted">
       <CodeBlock code={code} language={language} />

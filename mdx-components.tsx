@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef, ReactElement, ReactNode } from "react";
+import { HeadingAnchor } from "@/components/docs/heading-anchor";
 import { MdxCodeBlock } from "@/components/docs/mdx-code-block";
 import { slugifyHeading } from "@/lib/slugify";
-import { HeadingAnchor } from "@/components/docs/heading-anchor";
 
 function headingId(children: ReactNode): string | undefined {
   return typeof children === "string" ? slugifyHeading(children) : undefined;
@@ -31,10 +31,18 @@ function PropsTable({ rows }: { rows: PropRow[] }) {
         <table className="mdx-props-table w-full border-spacing-0 text-sm text-left">
           <thead>
             <tr className="border-b border-border">
-              <th className="bg-muted/50 py-3 px-4 font-medium text-muted-foreground whitespace-nowrap">Prop</th>
-              <th className="bg-muted/50 py-3 px-4 font-medium text-muted-foreground whitespace-nowrap">Type</th>
-              <th className="bg-muted/50 py-3 px-4 font-medium text-muted-foreground whitespace-nowrap">Default</th>
-              <th className="bg-muted/50 py-3 px-4 font-medium text-muted-foreground w-full">Description</th>
+              <th className="bg-muted/50 py-3 px-4 font-medium text-muted-foreground whitespace-nowrap">
+                Prop
+              </th>
+              <th className="bg-muted/50 py-3 px-4 font-medium text-muted-foreground whitespace-nowrap">
+                Type
+              </th>
+              <th className="bg-muted/50 py-3 px-4 font-medium text-muted-foreground whitespace-nowrap">
+                Default
+              </th>
+              <th className="bg-muted/50 py-3 px-4 font-medium text-muted-foreground w-full">
+                Description
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">

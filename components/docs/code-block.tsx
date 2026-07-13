@@ -29,10 +29,17 @@ export function CodeBlock({
         >
           {tokens.map((line, lineIndex) => {
             // Prism sometimes leaves a trailing empty line even after trim()
-            if (lineIndex === tokens.length - 1 && line.length === 1 && line[0].empty) {
+            if (
+              lineIndex === tokens.length - 1 &&
+              line.length === 1 &&
+              line[0].empty
+            ) {
               return null;
             }
-            if (lineIndex === tokens.length - 1 && line.every(t => !t.content.trim())) {
+            if (
+              lineIndex === tokens.length - 1 &&
+              line.every((t) => !t.content.trim())
+            ) {
               return null;
             }
             const { className: lineClassName, ...lineProps } = getLineProps({

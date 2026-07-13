@@ -121,33 +121,48 @@ export function AvatarIllustration({ className }: { className?: string }) {
         // Sweep Up
         await animate(
           ".star-wave-path",
-          { d: starWaveUp } as any,
-          { duration: waveDur, ease: waveCurve },
+          { d: starWaveUp },
+          {
+            duration: waveDur,
+            ease: waveCurve,
+          },
         );
         // Sweep Down
         await animate(
           ".star-wave-path",
-          { d: starWaveDown } as any,
-          { duration: waveDur, ease: waveCurve },
+          { d: starWaveDown },
+          {
+            duration: waveDur,
+            ease: waveCurve,
+          },
         );
         // Sweep Up
         await animate(
           ".star-wave-path",
-          { d: starWaveUp } as any,
-          { duration: waveDur, ease: waveCurve },
+          { d: starWaveUp },
+          {
+            duration: waveDur,
+            ease: waveCurve,
+          },
         );
         // Sweep Down
         await animate(
           ".star-wave-path",
-          { d: starWaveDown } as any,
-          { duration: waveDur, ease: waveCurve },
+          { d: starWaveDown },
+          {
+            duration: waveDur,
+            ease: waveCurve,
+          },
         );
 
         // Return to rest
         await animate(
           ".star-wave-path",
-          { d: starRest } as any,
-          { duration: waveDur, ease: waveCurve },
+          { d: starRest },
+          {
+            duration: waveDur,
+            ease: waveCurve,
+          },
         );
 
         // 7. Idle Wait before jumping again

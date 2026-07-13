@@ -38,7 +38,10 @@ export function PageFooter({
           <motion.button
             onClick={() => {
               setVoted("up");
-              console.log("Analytics track: feedback_submitted", { path: window.location.pathname, vote: 'up' });
+              console.log("Analytics track: feedback_submitted", {
+                path: window.location.pathname,
+                vote: "up",
+              });
             }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: "spring", bounce: 0, duration: 0.3 }}
@@ -68,7 +71,10 @@ export function PageFooter({
           <motion.button
             onClick={() => {
               setVoted("down");
-              console.log("Analytics track: feedback_submitted", { path: window.location.pathname, vote: 'down' });
+              console.log("Analytics track: feedback_submitted", {
+                path: window.location.pathname,
+                vote: "down",
+              });
             }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: "spring", bounce: 0, duration: 0.3 }}

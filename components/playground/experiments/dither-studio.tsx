@@ -1,8 +1,8 @@
 "use client";
 
+import { Upload04Icon } from "hugeicons-react";
 import { useDeferredValue, useEffect, useRef, useState } from "react";
 import { Fader } from "@/registry/aster/ui/fader/fader";
-import { Upload04Icon } from "hugeicons-react";
 import { useTheme } from "../theme-context";
 
 // Precomputed 4x4 Bayer Matrix (0-255 scale) for fast integer lookups
@@ -39,7 +39,7 @@ function useImageLoader() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) processFile(file);
-    e.target.value = '';
+    e.target.value = "";
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -69,7 +69,7 @@ function useImageLoader() {
       imgRef.current = img;
       lastScaleRef.current = -1; // Invalidate pixel cache
       setImageLoaded(true);
-      setImageLoadId(id => id + 1);
+      setImageLoadId((id) => id + 1);
     };
   }, [imageSrc]);
 
@@ -109,6 +109,7 @@ function useDitherEngine(
   const sourceDataRef = useRef<Uint8ClampedArray | null>(null);
   const currentRunRef = useRef(0);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: imageLoadId isn't read in the effect body, but it's kept as an explicit re-render trigger decoupled from the imageLoaded boolean so a future change to the load state machine can't silently make image swaps stop redrawing
   useEffect(() => {
     if (!imageLoaded || !imgRef.current || !canvasRef.current) return;
 
@@ -131,7 +132,8 @@ function useDitherEngine(
       tempCanvasRef.current = document.createElement("canvas");
     }
     const tempCanvas = tempCanvasRef.current;
-    const tCtx = tempCanvas.getContext("2d", { willReadFrequently: true })!;
+    const tCtx = tempCanvas.getContext("2d", { willReadFrequently: true });
+    if (!tCtx) return;
 
     if (lastScaleRef.current !== scale || !sourceDataRef.current) {
       tempCanvas.width = renderW;
@@ -156,6 +158,7 @@ function useDitherEngine(
 
     function processChunk() {
       if (currentRunRef.current !== runId) return;
+      if (!ctx || !tCtx) return;
 
       const maxY = Math.min(renderH, currentY + CHUNK_SIZE);
       for (let y = currentY; y < maxY; y++) {
@@ -188,8 +191,8 @@ function useDitherEngine(
         requestAnimationFrame(processChunk);
       } else {
         tCtx.putImageData(imgData, 0, 0);
-        ctx!.imageSmoothingEnabled = false;
-        ctx!.drawImage(tempCanvas, 0, 0, renderW, renderH, 0, 0, W, H);
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(tempCanvas, 0, 0, renderW, renderH, 0, 0, W, H);
       }
     }
 
@@ -262,10 +265,11 @@ export function DitherStudio() {
         ref={fileInputRef}
         className="sr-only"
         aria-hidden="true"
+        tabIndex={-1}
         accept="image/*"
         onChange={(e) => {
           handleImageUpload(e);
-          e.target.value = '';
+          e.target.value = "";
         }}
       />
       <button
@@ -277,7 +281,6 @@ export function DitherStudio() {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-
         {!imageSrc ? (
           <div className="flex flex-col items-center gap-2 text-muted-foreground transition-transform group-hover:scale-105 group-active:scale-95">
             <Upload04Icon size={24} />
@@ -302,6 +305,7 @@ export function DitherStudio() {
                 Click or Drag to Swap
               </span>
               <button
+                type="button"
                 onClick={handleExport}
                 className="rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition-transform hover:scale-105 active:scale-95"
               >

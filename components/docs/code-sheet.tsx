@@ -2,10 +2,10 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type Ref, useEffect, useRef, useState } from "react";
+import DownloadIcon from "../icons/download";
+import { CopyButton } from "../ui/copy-button";
 import { useCodeSheet } from "./code-sheet-context";
 import { SourceTabs } from "./source-tabs";
-import { CopyButton } from "../ui/copy-button";
-import DownloadIcon from "../icons/download";
 
 /**
  * Mirrors --motion-dur-slow / --motion-ease-in-out
@@ -134,7 +134,10 @@ export function CodeSheet() {
                       label="Download file"
                       onClick={handleDownload}
                     >
-                      <DownloadIcon className="size-[15px] stroke-[1.5]" aria-hidden="true" />
+                      <DownloadIcon
+                        className="size-[15px] stroke-[1.5]"
+                        aria-hidden="true"
+                      />
                     </HeaderIconButton>
                     <HeaderIconButton
                       ref={closeButtonRef}

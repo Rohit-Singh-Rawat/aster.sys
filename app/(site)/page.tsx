@@ -1,6 +1,6 @@
+import { GithubIcon, StarIcon } from "hugeicons-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { GithubIcon, StarIcon } from "hugeicons-react";
 import { HeroBlueprint } from "@/components/landing/hero-blueprint";
 import { Logo } from "@/components/logo/logo";
 import { PageTransition } from "@/components/page-transition";
@@ -70,12 +70,18 @@ export default async function Home() {
               className="outline-none focus-ring group flex items-center justify-center gap-3 rounded-full border border-border px-5 py-2 font-medium text-foreground text-sm transition-[background-color,scale] duration-(--motion-dur-fast) ease-(--motion-ease-out) hover:bg-muted active:scale-[0.97] motion-reduce:active:scale-100"
             >
               <span className="flex items-center gap-2">
-                <GithubIcon size={18} className="opacity-80 transition-opacity group-hover:opacity-100" />
+                <GithubIcon
+                  size={18}
+                  className="opacity-80 transition-opacity group-hover:opacity-100"
+                />
                 GitHub
               </span>
               {stars !== null && (
                 <div className="flex items-center gap-1.5 text-muted-foreground ml-0.5">
-                  <StarIcon size={16} className="text-amber-400 group-hover:text-amber-500 transition-colors" />
+                  <StarIcon
+                    size={16}
+                    className="text-amber-400 group-hover:text-amber-500 transition-colors"
+                  />
                   <span className="font-medium text-sm tabular-nums">
                     {stars}
                     <span className="sr-only"> GitHub stars</span>

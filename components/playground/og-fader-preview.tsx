@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { Logo } from "@/components/logo/logo";
 import { cn } from "@/registry/aster/lib/cn";
 import { Fader } from "@/registry/aster/ui/fader/fader";
-import { Logo } from "@/components/logo/logo";
 
 /**
  * Live, draggable OG-image composition prototypes — real <Fader> instances,
@@ -22,7 +22,11 @@ interface PatternProps {
   scale?: number;
 }
 
-export function diagonalGrid({ color = 'black', opacity = 0.5, scale = 0.5 }: PatternProps) {
+export function diagonalGrid({
+  color = "black",
+  opacity = 0.5,
+  scale = 0.5,
+}: PatternProps) {
   return `data:image/svg+xml;base64,${btoa(`<svg 
 xmlns="http://www.w3.org/2000/svg" 
 width="${160 * scale}" 
@@ -73,13 +77,13 @@ fill="none">
 <path d="M1530.89 -6.64062L-828 1355.27" stroke="${color}" stroke-linejoin="round"/>
 <path d="M1570.89 62.6406L-788 1424.55" stroke="${color}" stroke-linejoin="round"/>
 </g>
-</svg>`)}`
+</svg>`)}`;
 }
 
 export function Canvas({
   children,
   scattered = false,
-  className
+  className,
 }: {
   children: React.ReactNode;
   scattered?: boolean;
@@ -89,7 +93,7 @@ export function Canvas({
     <div
       className={cn(
         "relative h-[630px] w-[1200px] shrink-0 overflow-hidden bg-white border-2 border-slate-200",
-        className
+        className,
       )}
     >
       {scattered && (
@@ -100,11 +104,11 @@ export function Canvas({
             <div className="absolute -top-[10%] right-[0%] w-[60%] h-[70%] rounded-[100%] bg-fuchsia-300/40 mix-blend-multiply blur-[120px]" />
             <div className="absolute -bottom-[10%] right-[10%] w-[60%] h-[70%] rounded-[100%] bg-yellow-200/50 mix-blend-multiply blur-[120px]" />
           </div>
-          <div 
-            className="absolute inset-0 z-0 pointer-events-none opacity-[0.25] mix-blend-overlay" 
-            style={{ 
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")` 
-            }} 
+          <div
+            className="absolute inset-0 z-0 pointer-events-none opacity-[0.25] mix-blend-overlay"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+            }}
           />
         </>
       )}
@@ -115,28 +119,147 @@ export function Canvas({
             display: "flex",
             backgroundImage: `url(${diagonalGrid({ color: "#e2e8f0", opacity: 0.8, scale: 0.5 })})`,
             backgroundRepeat: "repeat",
-            WebkitMaskImage: "radial-gradient(ellipse at 90% 90%, black 0%, transparent 70%)",
-            maskImage: "radial-gradient(ellipse at 90% 90%, black 0%, transparent 70%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse at 90% 90%, black 0%, transparent 70%)",
+            maskImage:
+              "radial-gradient(ellipse at 90% 90%, black 0%, transparent 70%)",
           }}
         />
       )}
-      <div className="relative z-10 h-full w-full">
-        {children}
-      </div>
+      <div className="relative z-10 h-full w-full">{children}</div>
     </div>
   );
 }
 
 const SCATTERED_CARDS: CascadeCardSpec[] = [
-  { label: "Blend", initial: 20, unit: "%", left: 680, top: 100, width: 240, size: "lg", trackBg: "#ffffff", trackBorder: "1px solid rgba(0,0,0,0.05)", trackRadius: 999, fillColor: "rgba(59,130,246,0.1)", barColor: "#3b82f6" },
-  { label: "Drive", initial: 60, unit: "%", left: 240, top: 220, width: 260, size: "lg", trackBg: "#ffffff", trackBorder: "1px solid rgba(0,0,0,0.05)", trackRadius: 16, fillColor: "rgba(37,99,235,0.15)", barColor: "#2563eb", cursor: "black" },
-  { label: "Phase", initial: 45, unit: "°", left: 650, top: 220, width: 240, size: "lg", trackBg: "#ffffff", trackBorder: "1px solid rgba(0,0,0,0.05)", trackRadius: 999, fillColor: "rgba(168,85,247,0.15)", barColor: "#a855f7", cursor: "orange" },
-  { label: "Warmth", initial: 85, unit: "%", left: 120, top: 350, width: 240, size: "lg", trackBg: "#ffffff", trackBorder: "1px solid rgba(0,0,0,0.05)", trackRadius: 999, fillColor: "rgba(236,72,153,0.15)", barColor: "#ec4899" },
-  { label: "Rate", initial: 40, unit: "Hz", left: 420, top: 350, width: 240, size: "lg", trackBg: "#ffffff", trackBorder: "1px solid rgba(0,0,0,0.05)", trackRadius: 999, fillColor: "rgba(16,185,129,0.15)", barColor: "#10b981" },
-  { label: "Amount", initial: 60, left: 720, top: 350, width: 240, size: "lg", trackBg: "#ffffff", trackBorder: "1px solid rgba(0,0,0,0.05)", trackRadius: 999, fillColor: "rgba(249,115,22,0.15)", barColor: "#f97316" },
-  { label: "Glow", initial: 75, unit: "%", left: 280, top: 480, width: 240, size: "lg", trackBg: "#ffffff", trackBorder: "1px solid rgba(0,0,0,0.05)", trackRadius: 999, fillColor: "rgba(234,179,8,0.15)", barColor: "#eab308", cursor: "blue" },
-  { label: "Depth", initial: 50, unit: "%", left: 580, top: 480, width: 240, size: "lg", trackBg: "#ffffff", trackBorder: "1px solid rgba(0,0,0,0.05)", trackRadius: 999, fillColor: "rgba(6,182,212,0.15)", barColor: "#06b6d4" },
-  { label: "Pan", initial: 0, unit: "C", left: 450, top: 600, width: 240, size: "lg", trackBg: "#ffffff", trackBorder: "1px solid rgba(0,0,0,0.05)", trackRadius: 999, fillColor: "rgba(15,23,42,0.1)", barColor: "#0f172a" },
+  {
+    label: "Blend",
+    initial: 20,
+    unit: "%",
+    left: 680,
+    top: 100,
+    width: 240,
+    size: "lg",
+    trackBg: "#ffffff",
+    trackBorder: "1px solid rgba(0,0,0,0.05)",
+    trackRadius: 999,
+    fillColor: "rgba(59,130,246,0.1)",
+    barColor: "#3b82f6",
+  },
+  {
+    label: "Drive",
+    initial: 60,
+    unit: "%",
+    left: 240,
+    top: 220,
+    width: 260,
+    size: "lg",
+    trackBg: "#ffffff",
+    trackBorder: "1px solid rgba(0,0,0,0.05)",
+    trackRadius: 16,
+    fillColor: "rgba(37,99,235,0.15)",
+    barColor: "#2563eb",
+    cursor: "black",
+  },
+  {
+    label: "Phase",
+    initial: 45,
+    unit: "°",
+    left: 650,
+    top: 220,
+    width: 240,
+    size: "lg",
+    trackBg: "#ffffff",
+    trackBorder: "1px solid rgba(0,0,0,0.05)",
+    trackRadius: 999,
+    fillColor: "rgba(168,85,247,0.15)",
+    barColor: "#a855f7",
+    cursor: "orange",
+  },
+  {
+    label: "Warmth",
+    initial: 85,
+    unit: "%",
+    left: 120,
+    top: 350,
+    width: 240,
+    size: "lg",
+    trackBg: "#ffffff",
+    trackBorder: "1px solid rgba(0,0,0,0.05)",
+    trackRadius: 999,
+    fillColor: "rgba(236,72,153,0.15)",
+    barColor: "#ec4899",
+  },
+  {
+    label: "Rate",
+    initial: 40,
+    unit: "Hz",
+    left: 420,
+    top: 350,
+    width: 240,
+    size: "lg",
+    trackBg: "#ffffff",
+    trackBorder: "1px solid rgba(0,0,0,0.05)",
+    trackRadius: 999,
+    fillColor: "rgba(16,185,129,0.15)",
+    barColor: "#10b981",
+  },
+  {
+    label: "Amount",
+    initial: 60,
+    left: 720,
+    top: 350,
+    width: 240,
+    size: "lg",
+    trackBg: "#ffffff",
+    trackBorder: "1px solid rgba(0,0,0,0.05)",
+    trackRadius: 999,
+    fillColor: "rgba(249,115,22,0.15)",
+    barColor: "#f97316",
+  },
+  {
+    label: "Glow",
+    initial: 75,
+    unit: "%",
+    left: 280,
+    top: 480,
+    width: 240,
+    size: "lg",
+    trackBg: "#ffffff",
+    trackBorder: "1px solid rgba(0,0,0,0.05)",
+    trackRadius: 999,
+    fillColor: "rgba(234,179,8,0.15)",
+    barColor: "#eab308",
+    cursor: "blue",
+  },
+  {
+    label: "Depth",
+    initial: 50,
+    unit: "%",
+    left: 580,
+    top: 480,
+    width: 240,
+    size: "lg",
+    trackBg: "#ffffff",
+    trackBorder: "1px solid rgba(0,0,0,0.05)",
+    trackRadius: 999,
+    fillColor: "rgba(6,182,212,0.15)",
+    barColor: "#06b6d4",
+  },
+  {
+    label: "Pan",
+    initial: 0,
+    unit: "C",
+    left: 450,
+    top: 600,
+    width: 240,
+    size: "lg",
+    trackBg: "#ffffff",
+    trackBorder: "1px solid rgba(0,0,0,0.05)",
+    trackRadius: 999,
+    fillColor: "rgba(15,23,42,0.1)",
+    barColor: "#0f172a",
+  },
 ];
 
 export function ScatteredOgPreview() {
@@ -147,7 +270,9 @@ export function ScatteredOgPreview() {
           <span className="font-mono text-[13px] text-slate-500 uppercase tracking-[0.16em]">
             aster · component
           </span>
-          <h2 className="font-medium text-[64px] text-slate-900 tracking-tight">Fader</h2>
+          <h2 className="font-medium text-[64px] text-slate-900 tracking-tight">
+            Fader
+          </h2>
         </div>
       </div>
       <div className="absolute inset-0 z-10">
@@ -180,55 +305,412 @@ interface CascadeCardSpec {
 
 const CASCADE_CARDS: CascadeCardSpec[] = [
   // Row 1 (y: 40, height: 40)
-  { label: "Opacity", initial: 30, unit: "%", left: 560, top: 40, width: 200, size: "md", trackBg: "#faf5ff", trackBorder: "1px solid rgba(0,0,0,0.05)", trackRadius: 999, fillColor: "rgba(168,85,247,0.15)", barColor: "#a855f7" },
-  { label: "Tone", initial: 32, unit: "%", left: 780, top: 40, width: 200, size: "md", trackBg: "#eff6ff", trackRadius: 999, fillColor: "rgba(59,130,246,0.15)", barColor: "#3b82f6" },
-  { label: "Phase", initial: 50, unit: "°", left: 1000, top: 40, width: 220, size: "md", trackBg: "#fdf2f8", trackRadius: 16, fillColor: "rgba(236,72,153,0.15)", barColor: "#ec4899" },
-  { label: "Rate", initial: 40, unit: "Hz", left: 1240, top: 40, width: 200, size: "md", trackBg: "#ecfdf5", trackRadius: 999, fillColor: "rgba(16,185,129,0.15)", barColor: "#10b981" },
+  {
+    label: "Opacity",
+    initial: 30,
+    unit: "%",
+    left: 560,
+    top: 40,
+    width: 200,
+    size: "md",
+    trackBg: "#faf5ff",
+    trackBorder: "1px solid rgba(0,0,0,0.05)",
+    trackRadius: 999,
+    fillColor: "rgba(168,85,247,0.15)",
+    barColor: "#a855f7",
+  },
+  {
+    label: "Tone",
+    initial: 32,
+    unit: "%",
+    left: 780,
+    top: 40,
+    width: 200,
+    size: "md",
+    trackBg: "#eff6ff",
+    trackRadius: 999,
+    fillColor: "rgba(59,130,246,0.15)",
+    barColor: "#3b82f6",
+  },
+  {
+    label: "Phase",
+    initial: 50,
+    unit: "°",
+    left: 1000,
+    top: 40,
+    width: 220,
+    size: "md",
+    trackBg: "#fdf2f8",
+    trackRadius: 16,
+    fillColor: "rgba(236,72,153,0.15)",
+    barColor: "#ec4899",
+  },
+  {
+    label: "Rate",
+    initial: 40,
+    unit: "Hz",
+    left: 1240,
+    top: 40,
+    width: 200,
+    size: "md",
+    trackBg: "#ecfdf5",
+    trackRadius: 999,
+    fillColor: "rgba(16,185,129,0.15)",
+    barColor: "#10b981",
+  },
 
   // Row 2 (y: 110, height: 48)
-  { label: "Scale", initial: 78, left: 600, top: 110, width: 240, size: "lg", trackBg: "#eff6ff", trackBorder: "1px solid #bfdbfe", trackRadius: 16, fillColor: "rgba(59,130,246,0.15)", barColor: "#3b82f6", cursor: "black" },
-  { label: "Radius", initial: 30, unit: "px", left: 860, top: 110, width: 240, size: "lg", trackBg: "#fdf2f8", trackRadius: 999, fillColor: "rgba(236,72,153,0.15)", barColor: "#ec4899", cursor: "orange" },
-  { label: "Force", initial: 90, unit: "%", left: 1120, top: 110, width: 260, size: "lg", trackBg: "#fef2f2", trackBorder: "1px solid #fecaca", trackRadius: 16, fillColor: "rgba(239,68,68,0.15)", barColor: "#ef4444" },
+  {
+    label: "Scale",
+    initial: 78,
+    left: 600,
+    top: 110,
+    width: 240,
+    size: "lg",
+    trackBg: "#eff6ff",
+    trackBorder: "1px solid #bfdbfe",
+    trackRadius: 16,
+    fillColor: "rgba(59,130,246,0.15)",
+    barColor: "#3b82f6",
+    cursor: "black",
+  },
+  {
+    label: "Radius",
+    initial: 30,
+    unit: "px",
+    left: 860,
+    top: 110,
+    width: 240,
+    size: "lg",
+    trackBg: "#fdf2f8",
+    trackRadius: 999,
+    fillColor: "rgba(236,72,153,0.15)",
+    barColor: "#ec4899",
+    cursor: "orange",
+  },
+  {
+    label: "Force",
+    initial: 90,
+    unit: "%",
+    left: 1120,
+    top: 110,
+    width: 260,
+    size: "lg",
+    trackBg: "#fef2f2",
+    trackBorder: "1px solid #fecaca",
+    trackRadius: 16,
+    fillColor: "rgba(239,68,68,0.15)",
+    barColor: "#ef4444",
+  },
 
   // Row 3 (y: 180, height: 32)
-  { label: "Blur", initial: 20, unit: "px", left: 480, top: 180, width: 180, size: "sm", trackBg: "#fef2f2", trackRadius: 999, fillColor: "transparent", barColor: "#ef4444", points: [0, 20, 40] },
-  { label: "Spread", initial: 45, unit: "px", left: 680, top: 180, width: 180, size: "sm", trackBg: "#ecfdf5", trackRadius: 999, fillColor: "rgba(16,185,129,0.15)", barColor: "#10b981" },
-  { label: "Glow", initial: 80, unit: "%", left: 880, top: 180, width: 200, size: "sm", trackBg: "#fff7ed", trackRadius: 999, fillColor: "rgba(249,115,22,0.15)", barColor: "#f97316" },
-  { label: "Width", initial: 100, unit: "%", left: 1100, top: 180, width: 200, size: "sm", trackBg: "#faf5ff", trackRadius: 12, fillColor: "rgba(168,85,247,0.15)", barColor: "#a855f7" },
-  { label: "Height", initial: 50, unit: "%", left: 1320, top: 180, width: 180, size: "sm", trackBg: "#ecfeff", trackRadius: 999, fillColor: "rgba(6,182,212,0.15)", barColor: "#06b6d4" },
+  {
+    label: "Blur",
+    initial: 20,
+    unit: "px",
+    left: 480,
+    top: 180,
+    width: 180,
+    size: "sm",
+    trackBg: "#fef2f2",
+    trackRadius: 999,
+    fillColor: "transparent",
+    barColor: "#ef4444",
+    points: [0, 20, 40],
+  },
+  {
+    label: "Spread",
+    initial: 45,
+    unit: "px",
+    left: 680,
+    top: 180,
+    width: 180,
+    size: "sm",
+    trackBg: "#ecfdf5",
+    trackRadius: 999,
+    fillColor: "rgba(16,185,129,0.15)",
+    barColor: "#10b981",
+  },
+  {
+    label: "Glow",
+    initial: 80,
+    unit: "%",
+    left: 880,
+    top: 180,
+    width: 200,
+    size: "sm",
+    trackBg: "#fff7ed",
+    trackRadius: 999,
+    fillColor: "rgba(249,115,22,0.15)",
+    barColor: "#f97316",
+  },
+  {
+    label: "Width",
+    initial: 100,
+    unit: "%",
+    left: 1100,
+    top: 180,
+    width: 200,
+    size: "sm",
+    trackBg: "#faf5ff",
+    trackRadius: 12,
+    fillColor: "rgba(168,85,247,0.15)",
+    barColor: "#a855f7",
+  },
+  {
+    label: "Height",
+    initial: 50,
+    unit: "%",
+    left: 1320,
+    top: 180,
+    width: 180,
+    size: "sm",
+    trackBg: "#ecfeff",
+    trackRadius: 999,
+    fillColor: "rgba(6,182,212,0.15)",
+    barColor: "#06b6d4",
+  },
 
   // Row 4 (y: 240, height: 40)
-  { label: "Mix", initial: 50, unit: "%", left: 560, top: 240, width: 220, size: "md", trackBg: "#fefce8", trackRadius: 999, fillColor: "rgba(234,179,8,0.15)", barColor: "#eab308" },
-  { label: "Depth", initial: 60, unit: "%", left: 800, top: 240, width: 220, size: "md", trackBg: "#ecfeff", trackRadius: 999, fillColor: "transparent", barColor: "#06b6d4", points: [0, 50, 100] },
-  { label: "Pan", initial: 0, unit: "C", left: 1040, top: 240, width: 220, size: "md", trackBg: "#f8fafc", trackRadius: 16, fillColor: "transparent", barColor: "#64748b", points: [-100, 0, 100] },
-  { label: "Pitch", initial: 2, unit: "+", left: 1280, top: 240, width: 200, size: "md", trackBg: "#fdf2f8", trackRadius: 999, fillColor: "rgba(236,72,153,0.15)", barColor: "#ec4899" },
+  {
+    label: "Mix",
+    initial: 50,
+    unit: "%",
+    left: 560,
+    top: 240,
+    width: 220,
+    size: "md",
+    trackBg: "#fefce8",
+    trackRadius: 999,
+    fillColor: "rgba(234,179,8,0.15)",
+    barColor: "#eab308",
+  },
+  {
+    label: "Depth",
+    initial: 60,
+    unit: "%",
+    left: 800,
+    top: 240,
+    width: 220,
+    size: "md",
+    trackBg: "#ecfeff",
+    trackRadius: 999,
+    fillColor: "transparent",
+    barColor: "#06b6d4",
+    points: [0, 50, 100],
+  },
+  {
+    label: "Pan",
+    initial: 0,
+    unit: "C",
+    left: 1040,
+    top: 240,
+    width: 220,
+    size: "md",
+    trackBg: "#f8fafc",
+    trackRadius: 16,
+    fillColor: "transparent",
+    barColor: "#64748b",
+    points: [-100, 0, 100],
+  },
+  {
+    label: "Pitch",
+    initial: 2,
+    unit: "+",
+    left: 1280,
+    top: 240,
+    width: 200,
+    size: "md",
+    trackBg: "#fdf2f8",
+    trackRadius: 999,
+    fillColor: "rgba(236,72,153,0.15)",
+    barColor: "#ec4899",
+  },
 
   // Row 5 (y: 310, height: 48)
-  { label: "Fade", initial: 45, unit: "%", left: 700, top: 310, width: 240, size: "lg", trackBg: "#f8fafc", trackBorder: "1px solid rgba(100,116,139,0.15)", trackRadius: 999, fillColor: "transparent", barColor: "#64748b", disabled: true, cursor: "blue" },
-  { label: "Drive", initial: 85, unit: "%", left: 960, top: 310, width: 260, size: "lg", trackBg: "#fff7ed", trackBorder: "1px solid #ffedd5", trackRadius: 16, fillColor: "rgba(249,115,22,0.15)", barColor: "#f97316" },
-  { label: "Delay", initial: 40, unit: "ms", left: 1240, top: 310, width: 240, size: "lg", trackBg: "#eff6ff", trackRadius: 999, fillColor: "rgba(59,130,246,0.15)", barColor: "#3b82f6" },
+  {
+    label: "Fade",
+    initial: 45,
+    unit: "%",
+    left: 700,
+    top: 310,
+    width: 240,
+    size: "lg",
+    trackBg: "#f8fafc",
+    trackBorder: "1px solid rgba(100,116,139,0.15)",
+    trackRadius: 999,
+    fillColor: "transparent",
+    barColor: "#64748b",
+    disabled: true,
+    cursor: "blue",
+  },
+  {
+    label: "Drive",
+    initial: 85,
+    unit: "%",
+    left: 960,
+    top: 310,
+    width: 260,
+    size: "lg",
+    trackBg: "#fff7ed",
+    trackBorder: "1px solid #ffedd5",
+    trackRadius: 16,
+    fillColor: "rgba(249,115,22,0.15)",
+    barColor: "#f97316",
+  },
+  {
+    label: "Delay",
+    initial: 40,
+    unit: "ms",
+    left: 1240,
+    top: 310,
+    width: 240,
+    size: "lg",
+    trackBg: "#eff6ff",
+    trackRadius: 999,
+    fillColor: "rgba(59,130,246,0.15)",
+    barColor: "#3b82f6",
+  },
 
   // Row 6 (y: 380, height: 40)
-  { label: "Space", initial: 30, unit: "%", left: 640, top: 380, width: 220, size: "md", trackBg: "#eff6ff", trackRadius: 16, fillColor: "rgba(59,130,246,0.15)", barColor: "#3b82f6" },
-  { label: "Warmth", initial: 70, unit: "%", left: 880, top: 380, width: 220, size: "md", trackBg: "#fff7ed", trackRadius: 999, fillColor: "transparent", barColor: "#f97316", points: [0, 25, 50, 75, 100] },
-  { label: "Air", initial: 55, unit: "%", left: 1120, top: 380, width: 220, size: "md", trackBg: "#ecfdf5", trackRadius: 999, fillColor: "rgba(16,185,129,0.15)", barColor: "#10b981" },
+  {
+    label: "Space",
+    initial: 30,
+    unit: "%",
+    left: 640,
+    top: 380,
+    width: 220,
+    size: "md",
+    trackBg: "#eff6ff",
+    trackRadius: 16,
+    fillColor: "rgba(59,130,246,0.15)",
+    barColor: "#3b82f6",
+  },
+  {
+    label: "Warmth",
+    initial: 70,
+    unit: "%",
+    left: 880,
+    top: 380,
+    width: 220,
+    size: "md",
+    trackBg: "#fff7ed",
+    trackRadius: 999,
+    fillColor: "transparent",
+    barColor: "#f97316",
+    points: [0, 25, 50, 75, 100],
+  },
+  {
+    label: "Air",
+    initial: 55,
+    unit: "%",
+    left: 1120,
+    top: 380,
+    width: 220,
+    size: "md",
+    trackBg: "#ecfdf5",
+    trackRadius: 999,
+    fillColor: "rgba(16,185,129,0.15)",
+    barColor: "#10b981",
+  },
 
   // Row 7 (y: 450, height: 32)
-  { label: "Bite", initial: 15, unit: "%", left: 820, top: 450, width: 200, size: "sm", trackBg: "#fef2f2", trackRadius: 999, fillColor: "rgba(239,68,68,0.15)", barColor: "#ef4444" },
-  { label: "Shine", initial: 85, unit: "%", left: 1040, top: 450, width: 200, size: "sm", trackBg: "#fefce8", trackRadius: 12, fillColor: "rgba(234,179,8,0.15)", barColor: "#eab308" },
-  { label: "Grit", initial: 45, unit: "%", left: 1260, top: 450, width: 200, size: "sm", trackBg: "#f8fafc", trackRadius: 999, fillColor: "transparent", barColor: "#64748b", points: [0, 50, 100] },
+  {
+    label: "Bite",
+    initial: 15,
+    unit: "%",
+    left: 820,
+    top: 450,
+    width: 200,
+    size: "sm",
+    trackBg: "#fef2f2",
+    trackRadius: 999,
+    fillColor: "rgba(239,68,68,0.15)",
+    barColor: "#ef4444",
+  },
+  {
+    label: "Shine",
+    initial: 85,
+    unit: "%",
+    left: 1040,
+    top: 450,
+    width: 200,
+    size: "sm",
+    trackBg: "#fefce8",
+    trackRadius: 12,
+    fillColor: "rgba(234,179,8,0.15)",
+    barColor: "#eab308",
+  },
+  {
+    label: "Grit",
+    initial: 45,
+    unit: "%",
+    left: 1260,
+    top: 450,
+    width: 200,
+    size: "sm",
+    trackBg: "#f8fafc",
+    trackRadius: 999,
+    fillColor: "transparent",
+    barColor: "#64748b",
+    points: [0, 50, 100],
+  },
 
   // Row 8 (y: 510, height: 48)
-  { label: "Amount", initial: 100, left: 940, top: 510, width: 240, size: "lg", trackBg: "#faf5ff", trackRadius: 999, fillColor: "rgba(168,85,247,0.15)", barColor: "#a855f7" },
-  { label: "Size", initial: 75, unit: "L", left: 1200, top: 510, width: 240, size: "lg", trackBg: "#ecfeff", trackRadius: 16, fillColor: "rgba(6,182,212,0.15)", barColor: "#06b6d4" },
+  {
+    label: "Amount",
+    initial: 100,
+    left: 940,
+    top: 510,
+    width: 240,
+    size: "lg",
+    trackBg: "#faf5ff",
+    trackRadius: 999,
+    fillColor: "rgba(168,85,247,0.15)",
+    barColor: "#a855f7",
+  },
+  {
+    label: "Size",
+    initial: 75,
+    unit: "L",
+    left: 1200,
+    top: 510,
+    width: 240,
+    size: "lg",
+    trackBg: "#ecfeff",
+    trackRadius: 16,
+    fillColor: "rgba(6,182,212,0.15)",
+    barColor: "#06b6d4",
+  },
 
   // Row 9 (y: 580, height: 40)
-  { label: "Speed", initial: 90, unit: "ms", left: 1080, top: 580, width: 240, size: "md", trackBg: "#fdf2f8", trackRadius: 999, fillColor: "rgba(236,72,153,0.15)", barColor: "#ec4899" },
+  {
+    label: "Speed",
+    initial: 90,
+    unit: "ms",
+    left: 1080,
+    top: 580,
+    width: 240,
+    size: "md",
+    trackBg: "#fdf2f8",
+    trackRadius: 999,
+    fillColor: "rgba(236,72,153,0.15)",
+    barColor: "#ec4899",
+  },
 ];
 
-function CursorIcon({ color = "#0f172a", x, y }: { color?: string; x: number; y: number }) {
+function CursorIcon({
+  color = "#0f172a",
+  x,
+  y,
+}: {
+  color?: string;
+  x: number;
+  y: number;
+}) {
   return (
     <svg
+      aria-hidden="true"
       width="28"
       height="28"
       viewBox="0 0 24 24"
@@ -257,40 +739,64 @@ const faderOverrideClass = `
   [&_.w-1]:![background-color:var(--bar-bg)]
 `;
 
-function CascadeCard({ 
-  label, initial, unit, left, top, width, size, 
-  trackBg, trackBorder, trackRadius, fillColor, fillBorder, barColor, disabled, cursor, points
+function CascadeCard({
+  label,
+  initial,
+  unit,
+  left,
+  top,
+  width,
+  size,
+  trackBg,
+  trackBorder,
+  trackRadius,
+  fillColor,
+  fillBorder,
+  barColor,
+  disabled,
+  cursor,
+  points,
 }: CascadeCardSpec) {
   const [value, setValue] = useState(initial);
   return (
     <div
       className="absolute shadow-[0_4px_12px_-4px_rgba(0,0,0,0.06),0_2px_4px_-2px_rgba(0,0,0,0.02)]"
-      style={{ 
-        left, top, width,
-        borderRadius: trackRadius === 999 ? "9999px" : `${trackRadius}px`,
-        "--track-bg": trackBg,
-        "--track-border": trackBorder || "none",
-        "--track-radius": trackRadius === 999 ? "9999px" : `${trackRadius}px`,
-        "--fill-bg": fillColor,
-        "--fill-border": fillBorder || "none",
-        "--bar-bg": barColor,
-      } as React.CSSProperties}
+      style={
+        {
+          left,
+          top,
+          width,
+          borderRadius: trackRadius === 999 ? "9999px" : `${trackRadius}px`,
+          "--track-bg": trackBg,
+          "--track-border": trackBorder || "none",
+          "--track-radius": trackRadius === 999 ? "9999px" : `${trackRadius}px`,
+          "--fill-bg": fillColor,
+          "--fill-border": fillBorder || "none",
+          "--bar-bg": barColor,
+        } as React.CSSProperties
+      }
     >
-      <Fader 
-        label={label} 
-        value={value} 
-        onValueChange={setValue} 
-        unit={unit} 
-        size={size} 
+      <Fader
+        label={label}
+        value={value}
+        onValueChange={setValue}
+        unit={unit}
+        size={size}
         disabled={disabled}
         points={points}
         className={cn(faderOverrideClass, disabled && "opacity-50")}
       />
       {cursor && (
-        <CursorIcon 
-          color={cursor === "black" ? "#0f172a" : cursor === "orange" ? "#f97316" : "#6366f1"}
-          x={width - 16} 
-          y={20} 
+        <CursorIcon
+          color={
+            cursor === "black"
+              ? "#0f172a"
+              : cursor === "orange"
+                ? "#f97316"
+                : "#6366f1"
+          }
+          x={width - 16}
+          y={20}
         />
       )}
     </div>
@@ -317,5 +823,3 @@ export function CascadeOgPreview() {
     </Canvas>
   );
 }
-
-

@@ -25,12 +25,7 @@ export default function VariantsDemo() {
       />
       <Fader label="Default" value={b} onValueChange={setB} unit="%" />
       <Fader label="Roomy" value={c} onValueChange={setC} size="lg" bordered />
-      <Fader
-        label="Disabled"
-        value={50}
-        onValueChange={() => {}}
-        disabled
-      />
+      <Fader label="Disabled" value={50} onValueChange={() => {}} disabled />
       <Fader
         label="Snap Points"
         value={d}

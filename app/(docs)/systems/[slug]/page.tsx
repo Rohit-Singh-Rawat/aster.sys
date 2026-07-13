@@ -2,14 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DemoFrame } from "@/components/docs/demo-frame";
+import { HeadingAnchor } from "@/components/docs/heading-anchor";
 import { InstallCommand } from "@/components/docs/install-command";
 import { OnThisPage, type TocEntry } from "@/components/docs/on-this-page";
+import { PageFooter } from "@/components/docs/page-footer";
 import { SourceTabs } from "@/components/docs/source-tabs";
 import { PageTransition } from "@/components/page-transition";
-import { HeadingAnchor } from "@/components/docs/heading-anchor";
-import { PageFooter } from "@/components/docs/page-footer";
 import { demoRegistry } from "@/lib/demos";
-import { getPrimitive, getSystemSlugs, getPagination } from "@/lib/registry-loader";
+import {
+  getPagination,
+  getPrimitive,
+  getSystemSlugs,
+} from "@/lib/registry-loader";
 import { GITHUB_URL, SITE_URL } from "@/lib/site";
 import { slugifyHeading } from "@/lib/slugify";
 
@@ -151,14 +155,17 @@ export default async function SystemPage({
 
             {primitive.files.length > 0 && (
               <section id="source" className="flex scroll-mt-24 flex-col gap-3">
-                <h2 id="source" className="group relative w-fit text-xl font-medium tracking-tight">
+                <h2
+                  id="source"
+                  className="group relative w-fit text-xl font-medium tracking-tight"
+                >
                   <HeadingAnchor id="source" />
                   Source
                 </h2>
                 <SourceTabs files={primitive.files} />
               </section>
             )}
-            
+
             <PageFooter {...getPagination(slug)} />
           </div>
         </article>

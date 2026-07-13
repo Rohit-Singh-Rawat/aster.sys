@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @plugin "@toolwind/corner-shape";
 
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -24,7 +23,6 @@
   --accent: oklch(0.75 0.12 265);
   --ring: oklch(0.581 0.192 295);
 }
-
 
 @theme inline {
   --color-background: var(--background);

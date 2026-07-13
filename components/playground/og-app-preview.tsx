@@ -1,21 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
-import { Canvas, diagonalGrid } from "./og-fader-preview";
-import { Logo } from "@/components/logo/logo";
-import { SITE_DESCRIPTION } from "@/lib/site";
-
 import { ButtonBlueprint } from "@/components/blueprints/button-blueprint";
-import { InputBlueprint } from "@/components/blueprints/input-blueprint";
-import { SwitchBlueprint } from "@/components/blueprints/switch-blueprint";
-import { FaderBlueprint } from "@/components/blueprints/fader-blueprint";
 import { CheckboxBlueprint } from "@/components/blueprints/checkbox-blueprint";
+import { DialogBlueprint } from "@/components/blueprints/dialog-blueprint";
+import { FaderBlueprint } from "@/components/blueprints/fader-blueprint";
+import { InputBlueprint } from "@/components/blueprints/input-blueprint";
 import { RadioBlueprint } from "@/components/blueprints/radio-blueprint";
 import { SelectBlueprint } from "@/components/blueprints/select-blueprint";
 import { SliderBlueprint } from "@/components/blueprints/slider-blueprint";
+import { SwitchBlueprint } from "@/components/blueprints/switch-blueprint";
 import { TooltipBlueprint } from "@/components/blueprints/tooltip-blueprint";
-import { DialogBlueprint } from "@/components/blueprints/dialog-blueprint";
+import { Logo } from "@/components/logo/logo";
+import { SITE_DESCRIPTION } from "@/lib/site";
+import { Canvas, diagonalGrid } from "./og-fader-preview";
 
 export type BlueprintType =
   | "Input"
@@ -54,173 +52,173 @@ const ALL_TYPES = Object.keys(COMPONENT_MAP) as BlueprintType[];
 
 const INITIAL_ITEMS: CanvasItem[] = [
   {
-    "id": "1",
-    "type": "Input",
-    "x": 920,
-    "y": -44,
-    "scale": 1
+    id: "1",
+    type: "Input",
+    x: 920,
+    y: -44,
+    scale: 1,
   },
   {
-    "id": "2",
-    "type": "Dialog",
-    "x": 720,
-    "y": -35,
-    "scale": 1
+    id: "2",
+    type: "Dialog",
+    x: 720,
+    y: -35,
+    scale: 1,
   },
   {
-    "id": "3",
-    "type": "Button",
-    "x": 895,
-    "y": 25,
-    "scale": 1
+    id: "3",
+    type: "Button",
+    x: 895,
+    y: 25,
+    scale: 1,
   },
   {
-    "id": "4",
-    "type": "Slider",
-    "x": 1052,
-    "y": 33,
-    "scale": 1
+    id: "4",
+    type: "Slider",
+    x: 1052,
+    y: 33,
+    scale: 1,
   },
   {
-    "id": "5",
-    "type": "Checkbox",
-    "x": 1007,
-    "y": 500,
-    "scale": 1
+    id: "5",
+    type: "Checkbox",
+    x: 1007,
+    y: 500,
+    scale: 1,
   },
   {
-    "id": "6",
-    "type": "Select",
-    "x": 1045,
-    "y": 394,
-    "scale": 1
+    id: "6",
+    type: "Select",
+    x: 1045,
+    y: 394,
+    scale: 1,
   },
   {
-    "id": "7",
-    "type": "Switch",
-    "x": 621,
-    "y": 71,
-    "scale": 1
+    id: "7",
+    type: "Switch",
+    x: 621,
+    y: 71,
+    scale: 1,
   },
   {
-    "id": "8",
-    "type": "Fader",
-    "x": 1068,
-    "y": 212,
-    "scale": 1
+    id: "8",
+    type: "Fader",
+    x: 1068,
+    y: 212,
+    scale: 1,
   },
   {
-    "id": "9",
-    "type": "Tooltip",
-    "x": 889,
-    "y": 127,
-    "scale": 1
+    id: "9",
+    type: "Tooltip",
+    x: 889,
+    y: 127,
+    scale: 1,
   },
   {
-    "id": "10",
-    "type": "Radio",
-    "x": 1050,
-    "y": 118,
-    "scale": 1
+    id: "10",
+    type: "Radio",
+    x: 1050,
+    y: 118,
+    scale: 1,
   },
   {
-    "id": "11",
-    "type": "Input",
-    "x": 1016,
-    "y": 279,
-    "scale": 1
+    id: "11",
+    type: "Input",
+    x: 1016,
+    y: 279,
+    scale: 1,
   },
   {
-    "id": "12",
-    "type": "Button",
-    "x": 751,
-    "y": 67,
-    "scale": 1
+    id: "12",
+    type: "Button",
+    x: 751,
+    y: 67,
+    scale: 1,
   },
   {
-    "id": "13",
-    "type": "Select",
-    "x": 726,
-    "y": 183,
-    "scale": 1
+    id: "13",
+    type: "Select",
+    x: 726,
+    y: 183,
+    scale: 1,
   },
   {
-    "id": "14",
-    "type": "Slider",
-    "x": 712,
-    "y": 526,
-    "scale": 1
+    id: "14",
+    type: "Slider",
+    x: 712,
+    y: 526,
+    scale: 1,
   },
   {
-    "id": "15",
-    "type": "Checkbox",
-    "x": 862,
-    "y": 214,
-    "scale": 1
+    id: "15",
+    type: "Checkbox",
+    x: 862,
+    y: 214,
+    scale: 1,
   },
   {
-    "id": "16",
-    "type": "Switch",
-    "x": 1076,
-    "y": -43,
-    "scale": 1
+    id: "16",
+    type: "Switch",
+    x: 1076,
+    y: -43,
+    scale: 1,
   },
   {
-    "id": "17",
-    "type": "Fader",
-    "x": 729,
-    "y": 431,
-    "scale": 1
+    id: "17",
+    type: "Fader",
+    x: 729,
+    y: 431,
+    scale: 1,
   },
   {
-    "id": "18",
-    "type": "Dialog",
-    "x": 638,
-    "y": 313,
-    "scale": 1
+    id: "18",
+    type: "Dialog",
+    x: 638,
+    y: 313,
+    scale: 1,
   },
   {
-    "id": "fcy1cww",
-    "type": "Switch",
-    "x": 871,
-    "y": 495,
-    "scale": 1
+    id: "fcy1cww",
+    type: "Switch",
+    x: 871,
+    y: 495,
+    scale: 1,
   },
   {
-    "id": "rijlf3n",
-    "type": "Button",
-    "x": 911,
-    "y": 398,
-    "scale": 1
+    id: "rijlf3n",
+    type: "Button",
+    x: 911,
+    y: 398,
+    scale: 1,
   },
   {
-    "id": "umew7fk",
-    "type": "Switch",
-    "x": 1236,
-    "y": 516,
-    "scale": 1
+    id: "umew7fk",
+    type: "Switch",
+    x: 1236,
+    y: 516,
+    scale: 1,
   },
   {
-    "id": "ndsztz3",
-    "type": "Radio",
-    "x": 815,
-    "y": 312,
-    "scale": 1
+    id: "ndsztz3",
+    type: "Radio",
+    x: 815,
+    y: 312,
+    scale: 1,
   },
   {
-    "id": "sghm9et",
-    "type": "Radio",
-    "x": 566,
-    "y": 171,
-    "scale": 1
+    id: "sghm9et",
+    type: "Radio",
+    x: 566,
+    y: 171,
+    scale: 1,
   },
   {
-    "id": "ujvhhfq",
-    "type": "Dialog",
-    "x": 977,
-    "y": 588,
-    "scale": 1
-  }
+    id: "ujvhhfq",
+    type: "Dialog",
+    x: 977,
+    y: 588,
+    scale: 1,
+  },
 ];
 
 export function AppOgPreview() {
@@ -228,7 +226,12 @@ export function AppOgPreview() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const [draggingId, setDraggingId] = useState<string | null>(null);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0, itemX: 0, itemY: 0 });
+  const [dragStart, setDragStart] = useState({
+    x: 0,
+    y: 0,
+    itemX: 0,
+    itemY: 0,
+  });
 
   const handlePointerDown = (e: React.PointerEvent, item: CanvasItem) => {
     e.stopPropagation();
@@ -245,9 +248,13 @@ export function AppOgPreview() {
     setItems((prev) =>
       prev.map((item) =>
         item.id === draggingId
-          ? { ...item, x: Math.round(dragStart.itemX + dx), y: Math.round(dragStart.itemY + dy) }
-          : item
-      )
+          ? {
+              ...item,
+              x: Math.round(dragStart.itemX + dx),
+              y: Math.round(dragStart.itemY + dy),
+            }
+          : item,
+      ),
     );
   };
 
@@ -281,7 +288,9 @@ export function AppOgPreview() {
   const updateSelected = (updates: Partial<CanvasItem>) => {
     if (!selectedId) return;
     setItems((prev) =>
-      prev.map((item) => (item.id === selectedId ? { ...item, ...updates } : item))
+      prev.map((item) =>
+        item.id === selectedId ? { ...item, ...updates } : item,
+      ),
     );
   };
 
@@ -300,8 +309,10 @@ export function AppOgPreview() {
             display: "flex",
             backgroundImage: `url(${diagonalGrid({ color: "#e2e8f0", opacity: 0.8, scale: 0.5 })})`,
             backgroundRepeat: "repeat",
-            WebkitMaskImage: "radial-gradient(ellipse at 90% 90%, black 0%, transparent 70%)",
-            maskImage: "radial-gradient(ellipse at 90% 90%, black 0%, transparent 70%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse at 90% 90%, black 0%, transparent 70%)",
+            maskImage:
+              "radial-gradient(ellipse at 90% 90%, black 0%, transparent 70%)",
           }}
         />
 
@@ -314,7 +325,9 @@ export function AppOgPreview() {
         </div>
 
         {/* Interactive Editor Area */}
-        <div 
+        {/* biome-ignore lint/a11y/noStaticElementInteractions: canvas background deselect zone, not a control — clicking empty space clears selection, mirrored by clicking any other item */}
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: no keyboard equivalent needed — this is a click-through deselect area, not an activatable control */}
+        <div
           className="absolute inset-0 z-10 text-slate-900 opacity-90"
           onClick={(e) => {
             if (e.target === e.currentTarget) setSelectedId(null);
@@ -332,7 +345,9 @@ export function AppOgPreview() {
                 onPointerUp={handlePointerUp}
                 onPointerCancel={handlePointerUp}
                 className={`absolute cursor-grab active:cursor-grabbing ${
-                  isSelected ? "ring-2 ring-blue-500 ring-offset-2 z-50 rounded-xl" : ""
+                  isSelected
+                    ? "ring-2 ring-blue-500 ring-offset-2 z-50 rounded-xl"
+                    : ""
                 }`}
                 style={{
                   top: item.y,
@@ -354,17 +369,21 @@ export function AppOgPreview() {
       <div className="flex flex-col w-[300px] shrink-0 gap-6 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
         <div>
           <h3 className="text-lg font-medium tracking-tight mb-1">OG Editor</h3>
-          <p className="text-sm text-slate-500">Drag components on the canvas to arrange them.</p>
+          <p className="text-sm text-slate-500">
+            Drag components on the canvas to arrange them.
+          </p>
         </div>
 
         <div className="flex flex-col gap-2">
           <button
+            type="button"
             onClick={addNew}
             className="w-full py-2 bg-slate-900 text-white rounded-md text-sm font-medium hover:bg-slate-800 transition-colors"
           >
             Add Component
           </button>
           <button
+            type="button"
             onClick={copyLayout}
             className="w-full py-2 bg-slate-100 text-slate-700 rounded-md text-sm font-medium hover:bg-slate-200 transition-colors"
           >
@@ -376,13 +395,23 @@ export function AppOgPreview() {
 
         {selectedItem ? (
           <div className="flex flex-col gap-4">
-            <h4 className="text-sm font-medium text-slate-900">Selected Component</h4>
-            
+            <h4 className="text-sm font-medium text-slate-900">
+              Selected Component
+            </h4>
+
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-slate-500">Type</label>
+              <label
+                htmlFor="og-editor-type"
+                className="text-xs text-slate-500"
+              >
+                Type
+              </label>
               <select
+                id="og-editor-type"
                 value={selectedItem.type}
-                onChange={(e) => updateSelected({ type: e.target.value as BlueprintType })}
+                onChange={(e) =>
+                  updateSelected({ type: e.target.value as BlueprintType })
+                }
                 className="w-full border border-slate-200 rounded-md p-2 text-sm bg-slate-50 outline-none focus:ring-1 focus:ring-blue-500"
               >
                 {ALL_TYPES.map((type) => (
@@ -394,21 +423,28 @@ export function AppOgPreview() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-slate-500 flex justify-between">
+              <label
+                htmlFor="og-editor-scale"
+                className="text-xs text-slate-500 flex justify-between"
+              >
                 Scale <span>{selectedItem.scale.toFixed(2)}x</span>
               </label>
               <input
+                id="og-editor-scale"
                 type="range"
                 min="0.5"
                 max="2.5"
                 step="0.05"
                 value={selectedItem.scale}
-                onChange={(e) => updateSelected({ scale: parseFloat(e.target.value) })}
+                onChange={(e) =>
+                  updateSelected({ scale: parseFloat(e.target.value) })
+                }
                 className="w-full"
               />
             </div>
 
             <button
+              type="button"
               onClick={deleteSelected}
               className="mt-2 w-full py-2 text-red-600 bg-red-50 rounded-md text-sm font-medium hover:bg-red-100 transition-colors"
             >

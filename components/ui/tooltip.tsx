@@ -1,7 +1,7 @@
 "use client";
 
-import * as React from "react";
 import { Tooltip as TooltipPrimitive } from "@base-ui/react";
+import * as React from "react";
 import { cn } from "@/registry/aster/lib/cn";
 
 const Tooltip = TooltipPrimitive.Root;
@@ -21,7 +21,7 @@ const TooltipContent = React.forwardRef<
           "transition-all duration-(--motion-dur-fast) ease-(--motion-ease-in-out)",
           "data-[starting-style]:opacity-0 data-[starting-style]:scale-95",
           "data-[ending-style]:opacity-0 data-[ending-style]:scale-95",
-          className
+          className,
         )}
         {...props}
       />

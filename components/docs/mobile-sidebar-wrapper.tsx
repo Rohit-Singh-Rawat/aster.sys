@@ -2,7 +2,6 @@
 
 import { motion, type PanInfo } from "motion/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import type * as React from "react";
 import { Logo } from "@/components/logo/logo";
 import { useMobileDrawer } from "@/hooks/use-mobile-drawer";
@@ -17,7 +16,7 @@ export function MobileSidebarWrapper({
   const { isOpen, setIsOpen, isMobile } = useMobileDrawer();
 
   const handleDragEnd = (
-    event: MouseEvent | TouchEvent | PointerEvent,
+    _event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo,
   ) => {
     // Momentum dismissal based on Emil Kowalski guidelines
@@ -57,7 +56,9 @@ export function MobileSidebarWrapper({
         >
           <Logo className="h-7 w-auto dark:invert" />
         </Link>
-        <nav className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-20 px-1.5 -mx-1.5">{sidebar}</nav>
+        <nav className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-20 px-1.5 -mx-1.5">
+          {sidebar}
+        </nav>
       </aside>
 
       {/* Main page content container */}
@@ -86,8 +87,12 @@ export function MobileSidebarWrapper({
         }`}
       >
         {/* Mobile Header */}
-        <header inert={isMobile && isOpen ? true : undefined} className="flex h-14 shrink-0 items-center justify-between px-4 md:hidden">
+        <header
+          inert={isMobile && isOpen ? true : undefined}
+          className="flex h-14 shrink-0 items-center justify-between px-4 md:hidden"
+        >
           <button
+            type="button"
             onClick={() => setIsOpen((prev) => !prev)}
             aria-expanded={isOpen}
             aria-controls="docs-sidebar"
@@ -152,7 +157,12 @@ export function MobileSidebarWrapper({
           />
         )}
 
-        <div inert={isMobile && isOpen ? true : undefined} className="min-w-0 flex-1 pb-8 md:pb-0">{children}</div>
+        <div
+          inert={isMobile && isOpen ? true : undefined}
+          className="min-w-0 flex-1 pb-8 md:pb-0"
+        >
+          {children}
+        </div>
       </motion.main>
     </div>
   );

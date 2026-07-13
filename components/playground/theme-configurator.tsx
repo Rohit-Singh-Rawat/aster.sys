@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { usePress } from "@/registry/aster/hooks/use-press";
 import { cn } from "@/registry/aster/lib/cn";
-import { durations, easings } from "@/registry/aster/lib/motion-tokens";
+import { easings } from "@/registry/aster/lib/motion-tokens";
 import { useTheme } from "./theme-context";
 
 const COLORS = [
@@ -17,15 +17,17 @@ const COLORS = [
   { name: "Slate", value: "oklch(0.4 0.05 260)" },
 ];
 
-// motion-tokens.ts stores CSS-facing strings ("320ms", "cubic-bezier(...)");
-// Framer Motion transitions need seconds + a bezier tuple, so these convert
-// the canonical tokens into the shapes Framer expects — never hand-picked.
-function toSeconds(ms: string): number {
-  return parseFloat(ms) / 1000;
-}
-
+// motion-tokens.ts stores CSS-facing strings ("cubic-bezier(...)"); Framer
+// Motion transitions need a bezier tuple, so this converts the canonical
+// token into the shape Framer expects — never hand-picked.
 function toBezier(cubicBezier: string): [number, number, number, number] {
-  const [x1, y1, x2, y2] = cubicBezier.match(/[\d.]+/g)!.map(Number);
+  const match = cubicBezier.match(/[\d.]+/g);
+  if (!match || match.length !== 4) {
+    throw new Error(
+      `toBezier: expected a cubic-bezier() string with 4 numbers, got "${cubicBezier}"`,
+    );
+  }
+  const [x1, y1, x2, y2] = match.map(Number);
   return [x1, y1, x2, y2];
 }
 

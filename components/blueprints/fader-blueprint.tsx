@@ -66,7 +66,7 @@ export function FaderBlueprint() {
           strokeOpacity={theme.wireframe.strokeOpacity}
           className={`${BP_MORPH} fill-transparent group-hover:fill-foreground/5 group-hover:stroke-transparent`}
         />
-        
+
         <rect
           x={10}
           y={50}
@@ -91,7 +91,7 @@ export function FaderBlueprint() {
             style={{ transformOrigin: "92px 70px" }}
           />
         </g>
-        
+
         <text
           x={24}
           y={74.5}
@@ -159,11 +159,19 @@ export function FaderBlueprint() {
           opacity={0.5}
         >
           {/* horizontal padding */}
-          <text x={17} y={73}>14</text>
-          <text x={183} y={73}>14</text>
+          <text x={17} y={73}>
+            14
+          </text>
+          <text x={183} y={73}>
+            14
+          </text>
           {/* vertical padding */}
-          <text x={110} y={58.5}>10</text>
-          <text x={110} y={88.5}>10</text>
+          <text x={110} y={58.5}>
+            10
+          </text>
+          <text x={110} y={88.5}>
+            10
+          </text>
         </g>
 
         <text
@@ -181,7 +189,14 @@ export function FaderBlueprint() {
         <Selection x={10} y={50} w={180} h={40} />
 
         <DimH x1={10} x2={190} y={35} label="180" />
-        <DimV x={205} y1={50} y2={90} label="40" labelXOffset={5} labelAnchor="start" />
+        <DimV
+          x={205}
+          y1={50}
+          y2={90}
+          label="40"
+          labelXOffset={5}
+          labelAnchor="start"
+        />
       </g>
     </Blueprint>
   );

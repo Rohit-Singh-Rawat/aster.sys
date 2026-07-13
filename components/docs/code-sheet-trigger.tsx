@@ -1,8 +1,8 @@
 "use client";
 
+import { motion } from "motion/react";
 import type { SourceFile } from "@/lib/registry-loader";
 import { useCodeSheet } from "./code-sheet-context";
-import { motion } from "motion/react";
 
 export function CodeSheetTrigger({ files }: { files: SourceFile[] }) {
   const { openSheet, open } = useCodeSheet();

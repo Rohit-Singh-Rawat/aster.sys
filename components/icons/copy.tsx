@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 
 export default function CopyIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -9,6 +9,7 @@ export default function CopyIcon(props: React.SVGProps<SVGSVGElement>) {
       height="24"
       className="transition-colors duration-300"
       fill="none"
+      aria-hidden="true"
       {...props}
     >
       <path

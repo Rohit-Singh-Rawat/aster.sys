@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function useMobileDrawer() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
   // Close sidebar on route change
+  // biome-ignore lint/correctness/useExhaustiveDependencies: pathname isn't read in the body, but it's the trigger — removing it would stop this effect from re-running on navigation
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);

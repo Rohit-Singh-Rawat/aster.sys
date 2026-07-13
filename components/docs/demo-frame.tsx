@@ -1,7 +1,7 @@
 "use client";
 
-import { type ReactNode, useState, useId } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { type ReactNode, useId, useState } from "react";
 import { CodeBlock } from "./code-block-lazy";
 
 export function DemoFrame({
@@ -55,7 +55,7 @@ export function DemoFrame({
           </motion.svg>
         </motion.button>
       )}
-      
+
       <div className="relative min-h-[350px] w-full" id={codeBlockId}>
         <AnimatePresence mode="popLayout" initial={false}>
           {showCode ? (

@@ -172,8 +172,14 @@ export function getPagination(slug: string): {
   previous: PaginationEntry | null;
   next: PaginationEntry | null;
 } {
-  const systems = getSystemIndex().map((s) => ({ ...s, layer: "system" as const }));
-  const components = getComponentIndex().map((c) => ({ ...c, layer: "component" as const }));
+  const systems = getSystemIndex().map((s) => ({
+    ...s,
+    layer: "system" as const,
+  }));
+  const components = getComponentIndex().map((c) => ({
+    ...c,
+    layer: "component" as const,
+  }));
   const all = [...systems, ...components];
   const idx = all.findIndex((entry) => entry.slug === slug);
   if (idx === -1) return { previous: null, next: null };
@@ -240,8 +246,8 @@ export const getPrimitive = cache(
       sections = await Promise.all(
         parts.map(async (part) => {
           const heading = part.match(/^##\s+(.+)$/m)?.[1].trim() ?? "";
-          const subHeadings = Array.from(part.matchAll(/^###\s+(.+)$/gm)).map((m) =>
-            m[1].trim(),
+          const subHeadings = Array.from(part.matchAll(/^###\s+(.+)$/gm)).map(
+            (m) => m[1].trim(),
           );
           const compiled = await compileMDX({
             source: part,

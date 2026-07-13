@@ -1,5 +1,4 @@
 import * as React from "react";
-import { cn } from "@/registry/aster/lib/cn";
 
 interface TypeDisplayProps {
   type: string;
@@ -48,7 +47,7 @@ export function TypeDisplay({ type }: TypeDisplayProps) {
         const cleanPart = isStringLiteral ? stringLiteralMatch[1] : part;
 
         return (
-          <React.Fragment key={i}>
+          <React.Fragment key={part}>
             {isStringLiteral ? (
               <code className="rounded-md border border-border/50 bg-muted/40 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground">
                 {cleanPart}
@@ -59,7 +58,9 @@ export function TypeDisplay({ type }: TypeDisplayProps) {
               </span>
             )}
             {i < parts.length - 1 && (
-              <span className="text-muted-foreground/40 font-mono text-xs">|</span>
+              <span className="text-muted-foreground/40 font-mono text-xs">
+                |
+              </span>
             )}
           </React.Fragment>
         );

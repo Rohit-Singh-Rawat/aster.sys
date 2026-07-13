@@ -60,17 +60,17 @@ export function FooterBackground() {
       `}</style>
       <div
         className="fixed inset-0 -z-20 pointer-events-none transition-all duration-(--motion-dur-ambient) ease-(--motion-ease-in-out)"
-      style={
-        {
-          opacity: mounted ? 1 : 0, // fade in to hide the initial jump if it changes
-          "--footer-g1": gradient.g1,
-          "--footer-g2": gradient.g2,
-          "--footer-g3": gradient.g3,
-          background:
-            "linear-gradient(180deg, var(--footer-g1) 20%, var(--footer-g2) 55%, var(--footer-g3) 100%)",
-        } as React.CSSProperties
-      }
-    />
+        style={
+          {
+            opacity: mounted ? 1 : 0, // fade in to hide the initial jump if it changes
+            "--footer-g1": gradient.g1,
+            "--footer-g2": gradient.g2,
+            "--footer-g3": gradient.g3,
+            background:
+              "linear-gradient(180deg, var(--footer-g1) 20%, var(--footer-g2) 55%, var(--footer-g3) 100%)",
+          } as React.CSSProperties
+        }
+      />
     </>
   );
 }
