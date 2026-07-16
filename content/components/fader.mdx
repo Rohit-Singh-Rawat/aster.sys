@@ -21,9 +21,10 @@ import { Fader } from "@/components/ui/fader/fader";
 
 ## What it is
 
-A parameter control whose track doubles as the value display: the label
-and live value sit inside the fill, so the edge of the fill is always the
-reading. It's built for tuning a value while watching it change, not for
+A parameter fader: the control doubles as the value display. It takes its
+name and behavior from a mixing console's fader, where the label and live
+value sit inside the fill itself, so the fill's edge is always the
+reading. Built for tuning a value while watching it change, not for
 picking one value in a form.
 
 ## Use cases
@@ -56,13 +57,28 @@ Two value grammars, explicit in the API and never merged implicitly:
   Coarse-step sliders (≤ 12 stops) behave as detents too; snappy is one
   behavior with two ways to declare it.
 
+**Pointer and drag:**
+
 - Hover → fill brightens one step (fine pointers only)
 - Pointer down on track → grab; drag → value follows 1:1 (or hops detents)
 - Click → value teleports; the fill springs to it
 - Drag past an end → elastic stretch, spring home on release or re-entry
+
+**Keyboard:**
+
 - <Kbd>←</Kbd> <Kbd>→</Kbd> → step (or previous/next point)
 - <Kbd>Home</Kbd> / <Kbd>End</Kbd> → min / max
 - <Kbd>PageUp</Kbd> / <Kbd>PageDown</Kbd> → large step
+
+## Caveats
+
+- Fader is controlled-only: there's no internal fallback state, `value`
+  must always be owned by the parent.
+- `points` needs at least 2 entries to form a grammar; fewer than that
+  logs a dev-time warning, not an error.
+- After a drag ends, Fader gives a deferred parent about 300ms to catch
+  up before snapping back to the accepted value. Rejecting a change
+  slower than that will look like the drag briefly overshot.
 
 ## Accessibility
 

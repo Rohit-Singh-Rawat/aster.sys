@@ -160,7 +160,7 @@ function CustomDropdown({
         onClick={() => setOpen(!open)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex h-full items-center justify-between gap-1.5 squircle border border-border bg-background py-1 pr-2 pl-2 text-foreground outline-none transition-colors duration-200 hover:bg-muted/80 focus-ring w-[86px]"
+        className="flex h-full items-center justify-between gap-1.5 rounded-md border border-border bg-background py-1 pr-2 pl-2 text-foreground outline-none transition-colors duration-200 hover:bg-muted/80 focus-ring w-[86px]"
       >
         <span className="flex items-center gap-1.5 truncate">
           {ICONS[value]}
@@ -188,7 +188,7 @@ function CustomDropdown({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.96 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute left-0 top-full mt-1.5 z-50 flex w-[130px] flex-col overflow-hidden squircle border border-border bg-background p-1 shadow-xl"
+            className="absolute left-0 top-full mt-1.5 z-50 flex w-[130px] flex-col overflow-hidden rounded-xl border border-border bg-background p-1 shadow-xl"
             role="listbox"
           >
             {PACKAGE_MANAGERS.map((pm) => (
@@ -202,7 +202,7 @@ function CustomDropdown({
                   setOpen(false);
                   triggerRef.current?.focus();
                 }}
-                className={`relative flex w-full cursor-default select-none items-center gap-2 squircle px-2 py-1.5 text-sm outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:bg-muted focus-visible:text-foreground focus-ring ${
+                className={`relative flex w-full cursor-default select-none items-center gap-2 rounded-md px-2 py-1.5 text-sm outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:bg-muted focus-visible:text-foreground focus-ring ${
                   pm === value
                     ? "bg-muted font-medium text-foreground"
                     : "text-foreground/80"
@@ -224,14 +224,14 @@ export function InstallCommand({ name }: { name: string }) {
   const command = `${RUNNERS[pm]} shadcn@latest add @aster/${name}`;
 
   return (
-    <div className="flex h-9 w-full sm:w-auto max-w-full items-center self-start squircle bg-muted p-1 font-mono text-xs">
+    <div className="flex h-9 w-full sm:w-auto max-w-full items-center self-start rounded-lg bg-muted p-1 font-mono text-xs">
       <CustomDropdown value={pm} onChange={setPm} />
       <div className="flex flex-1 min-w-0 h-full items-center justify-center px-3 text-foreground">
         <span className="truncate">{command}</span>
       </div>
       <CopyButton
         value={command}
-        className="flex shrink-0 h-full w-auto items-center justify-center squircle px-2.5 outline-none transition-colors duration-(--motion-dur-fast) hover:bg-background/60 focus-ring"
+        className="flex shrink-0 h-full w-auto items-center justify-center rounded-md px-2.5 outline-none transition-colors duration-(--motion-dur-fast) hover:bg-background/60 focus-ring"
       />
     </div>
   );

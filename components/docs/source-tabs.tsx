@@ -94,11 +94,11 @@ export function SourceTabs({
             {index === active && (
               <motion.span
                 layoutId={`${layoutId}-active-tab`}
-                className="-z-10 absolute inset-0 rounded-md bg-muted"
+                className="absolute inset-0 rounded-md bg-muted"
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               />
             )}
-            {file.name}
+            <span className="relative z-10">{file.name}</span>
           </button>
         ))}
       </div>

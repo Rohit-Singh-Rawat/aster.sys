@@ -9,10 +9,10 @@ import { BAR_BOX, barCenterFor, fillEdgePx } from "./geometry";
 import { type UseFaderOptions, useFader } from "./use-fader";
 
 /**
- * Fader — a parameter fader, not a form slider. The control doubles as
+ * Fader: a parameter fader, not a form slider. The control doubles as
  * the value display: label and value live inside the track, the fill
  * edge is the reading, and a thin bar rides the edge as the grab
- * signifier — the mixing-console fader insight the name comes from.
+ * signifier, the mixing-console fader insight the name comes from.
  * Base UI supplies semantics, keyboard, and touch; behavior lives in
  * `useFader`; this file is variants and markup only.
  */
@@ -20,7 +20,7 @@ import { type UseFaderOptions, useFader } from "./use-fader";
 /**
  * Radius around the bar's center, in px, where a detent mark is fully
  * hidden. Must exceed BAR_BOX/2 (8px): the current value's mark sits AT the
- * fill edge, 8px right of the bar's center — with a smaller radius it
+ * fill edge, 8px right of the bar's center. With a smaller radius it
  * peeked out beside the bar instead of being covered by it.
  */
 const MARK_HIDE_RADIUS = 10;
@@ -58,11 +58,11 @@ const sizeVariants = {
 
 const toneVariants = {
   accent: {
-    fill: "border border-accent/20 bg-accent/15 pointer-fine:group-hover/fader:bg-accent/20 group-data-dragging/control:bg-accent/25",
+    fill: "bg-accent/15 pointer-fine:group-hover/fader:bg-accent/20 group-data-dragging/control:bg-accent/25",
     bar: "bg-accent",
   },
   neutral: {
-    fill: "border border-foreground/10 bg-foreground/10 pointer-fine:group-hover/fader:bg-foreground/15 group-data-dragging/control:bg-foreground/20",
+    fill: "bg-foreground/10 pointer-fine:group-hover/fader:bg-foreground/15 group-data-dragging/control:bg-foreground/20",
     bar: "bg-foreground/80",
   },
 } as const;
@@ -182,8 +182,8 @@ export function Fader({
             )}
           >
             {/* Fill with the bar as its child: the element's right edge IS
-                the fill edge, so the ml-auto box rides it by construction —
-                no separate bar position exists to drift or clip. The fill
+                the fill edge, so the ml-auto box rides it by construction.
+                No separate bar position exists to drift or clip. The fill
                 shrinks to 0 at min; the bar overflows and parks at the
                 start. Width animation here is a deliberate exception to the
                 transform-only motion rule, scoped safely because the fill
@@ -191,7 +191,7 @@ export function Fader({
             <motion.div
               className={cn(
                 // rounded-r-md matches the Track's squircle fallback radius
-                // (6px) — squircle applies no plain border-radius fallback
+                // (6px): squircle applies no plain border-radius fallback
                 // asymmetrically, so the fill's own corner must be set to
                 // agree with it explicitly, or the two curves visibly
                 // disagree exactly at the fill's trailing edge.
@@ -232,7 +232,7 @@ export function Fader({
                 />
               </div>
             </motion.div>
-            {/* Detent marks at their true value positions — one coordinate
+            {/* Detent marks at their true value positions: one coordinate
                 space with the fill, so coverage and crossfade always agree.
                 Endpoints are already filtered by the behavior layer. */}
             <div className="pointer-events-none absolute inset-0">

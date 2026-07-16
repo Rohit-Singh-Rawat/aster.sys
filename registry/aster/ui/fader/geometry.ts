@@ -2,7 +2,7 @@
 
 /**
  * The bar's centering box at the fill's edge, px. Shared geometry truth:
- * the visual sizes the box from this constant and `barCenterFor` models it —
+ * the visual sizes the box from this constant and `barCenterFor` models it;
  * one source, so bar position and dodge/dot math can never disagree.
  */
 export const BAR_BOX = 16;
@@ -11,7 +11,7 @@ export const BAR_BOX = 16;
  * The visible fill edge in px, clamped to [0, trackWidth]. The upper clamp
  * matters: detent-hop springs overshoot their target, and without it the
  * fill bounced past the track end. The lower clamp at 0 lets the fill
- * shrink to nothing — the bar overflows naturally and parks at the start.
+ * shrink to nothing; the bar overflows naturally and parks at the start.
  */
 export function fillEdgePx(percent: number, trackWidth: number): number {
   return Math.min(Math.max(0, (percent / 100) * trackWidth), trackWidth);

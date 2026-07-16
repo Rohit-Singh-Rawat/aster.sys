@@ -7,15 +7,10 @@ import { Fader } from "@/registry/aster/ui/fader/fader";
 const PHRASE = "Interaction, crafted with intention.";
 
 /**
- * The component page's hero demo: a looping character-reveal — each
- * character fades and rises in, staggered — driven live by three
- * Faders. Shape borrowed from the owner's own Typer reference
- * (Speed/Cycles/Stagger controls over a live text animation), with
- * Cycles swapped for Size: in an always-looping demo, Size is
- * immediately visible when dragged, where an abstract repeat-count
- * mostly isn't. Self-seeding — no upload, no setup, animates the
- * instant the page loads. Freezes on prefers-reduced-motion: shows the
- * phrase fully revealed, no loop.
+ * Self-seeding, looping character-reveal driven live by five Faders
+ * (Speed, Stagger, Size, Drop, Weight); Weight also demos the
+ * snap-points grammar. Freezes fully revealed under
+ * prefers-reduced-motion.
  */
 export default function HeroDemo() {
   const reducedMotion = useReducedMotion();
@@ -72,7 +67,7 @@ export default function HeroDemo() {
           ))}
         </p>
       </div>
-      {/* Real accessible text — the animated version above is decorative (aria-hidden) */}
+      {/* Real accessible text; the animated version above is decorative (aria-hidden) */}
       <span className="sr-only">{PHRASE}</span>
       <div className="grid w-full max-w-2xl grid-cols-2 gap-x-12 gap-y-6">
         <Fader

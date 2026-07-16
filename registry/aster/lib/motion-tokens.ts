@@ -19,4 +19,5 @@ export const easings = {
 export const springs = {
   press: { type: "spring", stiffness: 700, damping: 32, mass: 1 },
   settle: { type: "spring", stiffness: 260, damping: 26, mass: 1 },
+  bounce: { type: "spring", stiffness: 260, damping: 24, mass: 1 },
 } as const;

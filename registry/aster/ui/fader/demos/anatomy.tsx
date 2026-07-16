@@ -397,7 +397,8 @@ function AnatomyBadges() {
       >
         <Badge
           part="indicator"
-          label="Slider.Indicator"
+          label="Fill (custom)"
+          isAccent
           className="items-end justify-center"
         />
       </foreignObject>
@@ -436,7 +437,7 @@ function AnatomyBadges() {
       >
         <Badge
           part="interaction"
-          label="Interaction Zone (&ge;44px)"
+          label="Interaction Zone (&ge;24px, WCAG 2.5.8)"
           isAccent
           className="items-center justify-start"
         />

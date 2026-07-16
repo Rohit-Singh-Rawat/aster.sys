@@ -5,8 +5,9 @@ import { Fader } from "@/registry/aster/ui/fader/fader";
 
 /**
  * Every sanctioned look from the token contract: three sizes, two tones,
- * and the hairline outline. There is deliberately no custom-color prop —
- * new hues enter through the DESIGN-SYSTEM protocol, not component props.
+ * the hairline outline, the disabled state, and the snap-points grammar.
+ * There is deliberately no custom-color prop: new hues enter through the
+ * DESIGN-SYSTEM protocol, not component props.
  */
 export default function VariantsDemo() {
   const [a, setA] = useState(30);

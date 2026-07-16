@@ -99,7 +99,7 @@
       "type": "registry:ui",
       "layer": "component",
       "title": "Fader",
-      "description": "A parameter control whose track doubles as the value display.",
+      "description": "A parameter slider built for live control panels: drag to tune a value while watching what it drives, with snap-to-point detents for discrete steps.",
       "categories": ["inputs"],
       "dependencies": ["@base-ui/react", "motion"],
       "registryDependencies": [

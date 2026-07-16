@@ -1,10 +1,15 @@
 "use client";
 
-import { motion, type PanInfo } from "motion/react";
+import { motion, type PanInfo, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import type * as React from "react";
 import { Logo } from "@/components/logo/logo";
 import { useMobileDrawer } from "@/hooks/use-mobile-drawer";
+
+// iOS-sheet curve (ui-animation / emilkowal-animations): the one duration in
+// this codebase exempt from the 300ms UI cap, since drawers get their own budget.
+const DRAWER_TRANSITION = { duration: 0.5, ease: [0.32, 0.72, 0, 1] as const };
+const DRAG_CONSTRAINTS = { left: 0, right: 256 };
 
 export function MobileSidebarWrapper({
   sidebar,
@@ -14,6 +19,7 @@ export function MobileSidebarWrapper({
   children: React.ReactNode;
 }) {
   const { isOpen, setIsOpen, isMobile } = useMobileDrawer();
+  const reducedMotion = useReducedMotion();
 
   const handleDragEnd = (
     _event: MouseEvent | TouchEvent | PointerEvent,
@@ -27,13 +33,18 @@ export function MobileSidebarWrapper({
 
   return (
     <div className="relative flex min-h-dvh w-full overflow-hidden md:overflow-visible md:p-4 md:gap-4">
-      {/* Mobile Gradient Backdrop */}
+      {/* Mobile gradient backdrop — always mounted (not toggled by isOpen).
+          It used to be `hidden` + `data-[state=open]:block`, but `display`
+          can't transition: it popped instantly while the 500ms slide was
+          still uncovering it, flashing the near-white page background
+          underneath for most of the animation. Being static here costs
+          nothing (it's fully covered by the opaque main panel except during
+          the reveal) and it's always in place, in sync, for both directions. */}
       <div
-        className="absolute inset-0 z-0 hidden transition-opacity duration-500 data-[state=open]:block md:!hidden"
-        data-state={isOpen ? "open" : "closed"}
+        className="absolute inset-0 z-0 md:hidden"
         style={{
           background:
-            "linear-gradient(180deg, var(--footer-g1) 20%, var(--footer-g2) 55%, var(--footer-g3) 100%)",
+            "linear-gradient(180deg, var(--footer-g1, #10162d) 20%, var(--footer-g2, #373144) 55%, var(--footer-g3, #4e546e) 100%)",
         }}
         aria-hidden="true"
       />
@@ -41,7 +52,7 @@ export function MobileSidebarWrapper({
       {/* Unified Sidebar (Sticky on desktop, underneath on mobile) */}
       <aside
         id="docs-sidebar"
-        className={`absolute inset-y-0 left-0 z-0 w-64 p-6 text-foreground transition-opacity duration-300 md:sticky md:top-4 flex h-dvh md:h-[calc(100dvh-2rem)] shrink-0 flex-col gap-6 md:rounded-2xl md:bg-muted/40 md:dark:bg-transparent md:dark:text-inherit max-md:pointer-events-none data-[state=open]:max-md:pointer-events-auto ${
+        className={`absolute inset-y-0 left-0 z-0 w-64 p-6 text-foreground md:sticky md:top-4 flex h-dvh md:h-[calc(100dvh-2rem)] shrink-0 flex-col gap-6 md:rounded-2xl md:bg-muted/40 md:dark:bg-transparent md:dark:text-inherit max-md:pointer-events-none data-[state=open]:max-md:pointer-events-auto ${
           isMobile ? "dark" : ""
         }`}
         data-state={isOpen ? "open" : "closed"}
@@ -64,7 +75,7 @@ export function MobileSidebarWrapper({
       {/* Main page content container */}
       <motion.main
         drag={isMobile && isOpen ? "x" : false}
-        dragConstraints={{ left: 0, right: 256 }}
+        dragConstraints={DRAG_CONSTRAINTS}
         dragElastic={0.05}
         dragMomentum={false}
         onDragEnd={handleDragEnd}
@@ -79,18 +90,16 @@ export function MobileSidebarWrapper({
                 borderRadius: 0,
               }
         }
-        transition={{ ease: [0.32, 0.72, 0, 1], duration: 0.5 }}
-        className={`relative z-10 flex min-h-dvh w-full flex-col bg-background md:bg-transparent border border-transparent ${
+        transition={reducedMotion ? { duration: 0 } : DRAWER_TRANSITION}
+        className={`relative z-10 flex min-h-dvh w-full flex-col bg-background transition-[box-shadow,border-color] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none md:bg-transparent border border-transparent ${
           isMobile && isOpen
             ? "shadow-2xl border-border cursor-grab active:cursor-grabbing"
             : ""
         }`}
       >
-        {/* Mobile Header */}
-        <header
-          inert={isMobile && isOpen ? true : undefined}
-          className="flex h-14 shrink-0 items-center justify-between px-4 md:hidden"
-        >
+        {/* Mobile Header. Not inert while open — it hosts the toggle
+            button, which must stay clickable to close the drawer again. */}
+        <header className="flex h-14 shrink-0 items-center justify-between px-4 md:hidden">
           <button
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
@@ -129,9 +138,11 @@ export function MobileSidebarWrapper({
                   rx="0.5"
                   initial={false}
                   animate={{ scaleX: isOpen ? 3.5 / 1.5 : 1 }}
-                  transition={{ ease: [0.32, 0.72, 0, 1], duration: 0.5 }}
+                  transition={
+                    reducedMotion ? { duration: 0 } : DRAWER_TRANSITION
+                  }
                   style={{ originX: 0 }}
-                  className="transition-transform duration-300 ease-out group-hover/button:translate-x-[1.5px]"
+                  className="transition-transform duration-300 ease-out motion-reduce:transition-none group-hover/button:translate-x-[1.5px]"
                 ></motion.rect>
               </g>
             </svg>
@@ -140,6 +151,7 @@ export function MobileSidebarWrapper({
           <Link
             href="/"
             aria-label="aster home"
+            inert={isMobile && isOpen ? true : undefined}
             className="absolute left-1/2 flex -translate-x-1/2 items-center rounded-sm outline-none focus-ring"
           >
             <Logo className="h-7 w-auto dark:invert" />
@@ -148,10 +160,13 @@ export function MobileSidebarWrapper({
           <div className="w-8" aria-hidden="true" />
         </header>
 
-        {/* Overlay to close drawer by clicking main content */}
+        {/* Overlay to close drawer by clicking main content. Starts below
+            the header (top-14 = header's h-14) so it never covers the
+            toggle button — previously inset-0 sat above the header at z-50
+            and silently swallowed taps on the hamburger while open. */}
         {isOpen && isMobile && (
           <div
-            className="absolute inset-0 z-50 md:hidden"
+            className="absolute inset-x-0 top-14 bottom-0 z-50 md:hidden"
             onClick={() => setIsOpen(false)}
             aria-hidden="true"
           />
